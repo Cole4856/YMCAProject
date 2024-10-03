@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj": {}
+    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj": {
+    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
+        "projectUniqueName": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
         "projectName": "YMCAProject",
-        "projectPath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
-        "packagesPath": "C:\\Users\\coleh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\obj\\",
+        "projectPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
+        "packagesPath": "C:\\Users\\kylie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\coleh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\kylie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.3.7, )"
+            },
+            "MySqlConnector.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.3.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
