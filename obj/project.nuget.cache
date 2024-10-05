@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "XSJ6lCVIvHk=",
+  "dgSpecHash": "mlvTdK9NYyE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
+  "projectFilePath": "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\kylie\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
-    "C:\\Users\\kylie\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.1\\microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
-    "C:\\Users\\kylie\\.nuget\\packages\\mysqlconnector\\2.3.7\\mysqlconnector.2.3.7.nupkg.sha512",
-    "C:\\Users\\kylie\\.nuget\\packages\\mysqlconnector.dependencyinjection\\2.3.6\\mysqlconnector.dependencyinjection.2.3.6.nupkg.sha512"
+    "/Users/quinnmcclure/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/Users/quinnmcclure/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/Users/quinnmcclure/.nuget/packages/mysqlconnector/2.3.7/mysqlconnector.2.3.7.nupkg.sha512",
+    "/Users/quinnmcclure/.nuget/packages/mysqlconnector.dependencyinjection/2.3.6/mysqlconnector.dependencyinjection.2.3.6.nupkg.sha512"
   ],
   "logs": []
 }

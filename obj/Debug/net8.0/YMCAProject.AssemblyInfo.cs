@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YMCAProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df026ad11885fec487512511b2e0f1698d89a1f9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d37b5bc6001fcf2c5225c5734c5b47598031f912")]
 [assembly: System.Reflection.AssemblyProductAttribute("YMCAProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YMCAProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

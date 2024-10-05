@@ -1,0 +1,17 @@
+@page
+@model YMCAProject.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login Page</h1>
+
+<!-- User Login Button and Float Label -->
+<button id="userLoginFloat" type="button" class="btn btn-primary btn-lg">User? Login here</button>
+
+<div class="form-floating mb-3" id="floatingLabelContainer" style="display: none;">
+  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+  <label for="floatingInput">Email address</label>
+</div>
+
+<button type="button" class="btn btn-primary btn-lg">Staff? Login heree</button>
