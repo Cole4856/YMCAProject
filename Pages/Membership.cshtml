@@ -6,7 +6,7 @@
 
 <div>
     <h1>Join the YMCA Today</h1>
-    <br>
+    <hr>
     <p>
         Experience a vibrant and welcoming community by becoming a YMCA member! 
         Whether you're looking to improve your fitness, connect with others, or simply 
@@ -37,11 +37,45 @@
         At the YMCA, we believe in making a positive impact on mind, body, and spirit. With flexible membership options and 
         financial assistance available, it's never been easier to join the Y and become part of a supportive community dedicated to healthy living and personal growth.
     </p>
-    <br>
+    <hr>
     <p>
         Ready to take the next step? Join today and start your journey towards a healthier, happier life at the YMCA!
     </p>
-    <button id="becomeMemberButton" type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="">
+
+    <!-- Become a Member button and modal -->
+    <button id="becomeMemberButton" type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#becomeMemberModal">
         <b>Become a Member Today!</b>
     </button>
+
+    <div class="modal fade" id="becomeMemberModal" tabindex="-1" aria-labelledby="becomeMemberModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="becomeMemberModal">Member Sign up</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="MemberName" class="form-label">Name</label>
+                    <input type="name" class="form-control" id="MemberName">
+                </div>
+                <div class="mb-3">
+                    <label for="MemberEmail" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="MemberEmail" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="MemberPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="MemberPassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </div>
