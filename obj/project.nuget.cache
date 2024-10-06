@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mlvTdK9NYyE=",
+  "dgSpecHash": "9GXo/lG1ipc=",
   "success": true,
-  "projectFilePath": "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj",
+  "projectFilePath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
   "expectedPackageFiles": [
     "/Users/quinnmcclure/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "/Users/quinnmcclure/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",

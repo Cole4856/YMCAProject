@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj": {}
+    "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj": {}
   },
   "projects": {
-    "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj": {
+    "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj",
+        "projectUniqueName": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
         "projectName": "YMCAProject",
-        "projectPath": "/Users/quinnmcclure/Desktop/YMCAProject/YMCAProject.csproj",
+        "projectPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
         "packagesPath": "/Users/quinnmcclure/.nuget/packages/",
-        "outputPath": "/Users/quinnmcclure/Desktop/YMCAProject/obj/",
+        "outputPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/quinnmcclure/.nuget/NuGet/NuGet.Config"

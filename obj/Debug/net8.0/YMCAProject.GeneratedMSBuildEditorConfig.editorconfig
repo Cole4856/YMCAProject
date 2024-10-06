@@ -9,51 +9,51 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = YMCAProject
 build_property.RootNamespace = YMCAProject
-build_property.ProjectDir = /Users/quinnmcclure/Desktop/YMCAProject/
+build_property.ProjectDir = /Users/quinnmcclure/Desktop/SD4/YMCAProject/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/quinnmcclure/Desktop/YMCAProject
+build_property.MSBuildProjectDirectory = /Users/quinnmcclure/Desktop/SD4/YMCAProject
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Error.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Index.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Login.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Membership.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Membership.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTWVtYmVyc2hpcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Privacy.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Programs.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Programs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZ3JhbXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/_ViewImports.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/_ViewStart.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/quinnmcclure/Desktop/YMCAProject/Pages/Shared/_Layout.cshtml]
+[/Users/quinnmcclure/Desktop/SD4/YMCAProject/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-262wlw02wb
