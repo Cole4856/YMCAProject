@@ -226,26 +226,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kylie\\.nuget\\packages\\": {}
+    "/Users/quinnmcclure/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
+      "projectUniqueName": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
       "projectName": "YMCAProject",
-      "projectPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
-      "packagesPath": "C:\\Users\\kylie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\obj\\",
+      "projectPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
+      "packagesPath": "/Users/quinnmcclure/.nuget/packages/",
+      "outputPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kylie\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/quinnmcclure/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -297,7 +296,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
