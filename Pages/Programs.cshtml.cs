@@ -7,11 +7,17 @@ namespace YMCAProject.Pages;
 
 public class ProgramsModel : PageModel
 {
-    private readonly ILogger<ProgramsModel> _logger;
+    // private readonly ILogger<ProgramsModel> _logger;
 
-    public ProgramsModel(ILogger<ProgramsModel> logger)
+    // public ProgramsModel(ILogger<ProgramsModel> logger)
+    // {
+    //     _logger = logger;
+    // }
+
+    private readonly IConfiguration _configuration;
+    public ProgramsModel(IConfiguration configuration)
     {
-        _logger = logger;
+        _configuration = configuration;
     }
 
     public List<Models.Programs> programList {get; set;} = [];
@@ -19,7 +25,8 @@ public class ProgramsModel : PageModel
     public void OnGet()
     {
         try{
-                string connectionString = "server=127.0.0.1;uid=ymca_proj;pwd=ymca@1234;database=ymca;";
+                string connectionString = _configuration.GetConnectionString("Default");
+                // "server=127.0.0.1;uid=ymca_proj;pwd=ymca@1234;database=ymca;";
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();

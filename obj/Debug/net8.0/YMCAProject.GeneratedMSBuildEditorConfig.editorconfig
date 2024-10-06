@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\kylie\OneDrive - University of Wisconsin-La Crosse\24 - 25 Senior Year\CS341\YMCAProject
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/kylie/OneDrive - University of Wisconsin-La Crosse/24 - 25 Senior Year/CS341/YMCAProject/Pages/Admin/CreateProgram.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQ3JlYXRlUHJvZ3JhbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/kylie/OneDrive - University of Wisconsin-La Crosse/24 - 25 Senior Year/CS341/YMCAProject/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
