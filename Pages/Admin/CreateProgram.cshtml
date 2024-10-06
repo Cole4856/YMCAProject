@@ -1,0 +1,116 @@
+@page
+@model YMCAProject.Pages.Admin.CreateProgram
+@{
+    ViewData["Title"] = "CreateProgram";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md mx-auto rounded border p-4">
+        <h2 class="text-center mb-5">New Program</h2>
+
+        @* @if (Model.ErrorMessage.Length > 0) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>@Model.ErrorMessage</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        } *@
+
+        <form method="post">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Program Name*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="ClassName"/>
+                    <span asp-validation-for="ClassName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Program Description*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="ClassDescription" />
+                    <span asp-validation-for="ClassDescription" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Price (Member)*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="PriceMember" />
+                    <span asp-validation-for="PriceMember" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Price (Non-member)*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="PriceNonmember" />
+                    <span asp-validation-for="PriceNonmember" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Capacity*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Capacity" />
+                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Staff ID*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="StaffId" />
+                    <span asp-validation-for="StaffId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Start Date*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="StartDate" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">End Date*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="EndDate" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Start Time*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="StartTime" type="time" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">End Time*</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="EndTime" type="time" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-sm-4 d-grid">
+                    <a class="btn btn-outline-primary" href="/Programs/Index" role="button">Cancel</a>
+                </div>
+            </div>
+
+
+
+        </form>
+    
+    </div>
+    
+</div>
