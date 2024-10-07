@@ -14,6 +14,8 @@ public class Programs
 
     public int Capacity { get; set; }
 
+    public int SpotsLeft { get; set; }
+
     public int StaffId { get; set; }
 
     public DateTime StartDate { get; set; }

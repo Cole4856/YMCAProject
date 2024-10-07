@@ -11,11 +11,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ClassName</th>
-            <th>ClassDescription</th>
-            <th>PriceMember</th>
-            <th>PriceNonmember</th>
-            <th>Capacity</th>
+            <th>Program</th>
+            <th>Description</th>
+            <th>Price (Member)</th>
+            <th>Price (Nonmember)</th>
+            <th>Spots Left</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -33,7 +33,7 @@
                 @item.PriceNonmember
             </td>
             <td>
-                @item.Capacity
+                @item.SpotsLeft
             </td>
             <td style='white-space:nowrap'>
                 <a class='btn btn-primary btn-sm' href='/Classes/Edit?name=@item.ClassName'>Register</a> 
