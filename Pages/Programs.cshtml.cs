@@ -31,7 +31,10 @@ public class ProgramsModel : PageModel
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();
 
-                    string sql = "SELECT * FROM ymca.programs";
+                    string sql = "SELECT p.*, (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`" +
+                        "FROM ymca.programs p LEFT JOIN ( " +
+                            "SELECT program_id, COUNT(member_id) AS registered_count FROM members_program GROUP BY program_id" +
+                        ") m ON p.program_id = m.program_id;";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
                         using (MySqlDataReader reader = command.ExecuteReader()) {
@@ -49,6 +52,8 @@ public class ProgramsModel : PageModel
                                 classInfo.EndDate = reader.GetDateTime(8);
                                 classInfo.StartTime = reader.GetDateTime(9);
                                 classInfo.EndTime = reader.GetDateTime(10);
+
+                                classInfo.SpotsLeft = reader.GetInt32(11);
 
                                 programList.Add(classInfo);
                             }
