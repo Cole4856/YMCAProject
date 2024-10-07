@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj": {}
+    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {}
   },
   "projects": {
-    "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj": {
+    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
+        "projectUniqueName": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
         "projectName": "YMCAProject",
-        "projectPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/YMCAProject.csproj",
-        "packagesPath": "/Users/quinnmcclure/.nuget/packages/",
-        "outputPath": "/Users/quinnmcclure/Desktop/SD4/YMCAProject/obj/",
+        "projectPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
+        "packagesPath": "C:\\Users\\kylie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/quinnmcclure/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\kylie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,6 +45,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.3.7, )"
@@ -72,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
