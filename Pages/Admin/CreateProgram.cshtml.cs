@@ -98,7 +98,7 @@ namespace YMCAProject.Pages.Admin
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();
 
-                    string sql = "Insert INTO programs " +
+                    string sql = "Insert INTO Programs " +
                         "(class_name, class_description, staff_id, price_member, price_nonmember, capacity, start_date, end_date, start_time, end_time) VALUES " +
                         "(@ClassName, @ClassDescription, @StaffId, @PriceMember, @PriceNonmember, @Capacity, @StartDate, @EndDate, @StartTime, @EndTime)";
 

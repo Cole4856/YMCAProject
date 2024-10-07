@@ -32,8 +32,8 @@ public class ProgramsModel : PageModel
                     connection.Open();
 
                     string sql = "SELECT p.*, (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`" +
-                        "FROM ymca.programs p LEFT JOIN ( " +
-                            "SELECT program_id, COUNT(member_id) AS registered_count FROM members_program GROUP BY program_id" +
+                        "FROM ymca.Programs p LEFT JOIN ( " +
+                            "SELECT program_id, COUNT(member_id) AS registered_count FROM Members_Program GROUP BY program_id" +
                         ") m ON p.program_id = m.program_id;";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
