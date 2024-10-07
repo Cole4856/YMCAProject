@@ -1,0 +1,44 @@
+@page
+@model YMCAProject.Pages.ProgramsModel
+@{
+    ViewData["Title"] = "Programs";
+}
+
+<h1>Programs Page</h1>
+<p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
+<a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ClassName</th>
+            <th>ClassDescription</th>
+            <th>PriceMember</th>
+            <th>PriceNonmember</th>
+            <th>Capacity</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.programList) {
+        <tr>
+            <td>@item.ClassName</td>
+            <td>
+                @item.ClassDescription
+            </td>
+            <td>
+                @item.PriceMember
+            </td>
+            <td>
+                @item.PriceNonmember
+            </td>
+            <td>
+                @item.Capacity
+            </td>
+            <td style='white-space:nowrap'>
+                <a class='btn btn-primary btn-sm' href='/Classes/Edit?name=@item.ClassName'>Register</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

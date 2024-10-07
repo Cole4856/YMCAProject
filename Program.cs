@@ -1,4 +1,4 @@
-using MySqlConnector;
+// using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 // Connect to database
-builder.Services.AddMySqlDataSource(builder.Configuration.GetConnectionString("Default")!);
+// builder.Services.AddMySqlDataSource(builder.Configuration.GetConnectionString("Default")!);
 
 var app = builder.Build();
 
