@@ -8,37 +8,25 @@
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
 <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Program</th>
-            <th>Description</th>
-            <th>Price (Member)</th>
-            <th>Price (Nonmember)</th>
-            <th>Spots Left</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.programList) {
-        <tr>
-            <td>@item.ClassName</td>
-            <td>
-                @item.ClassDescription
-            </td>
-            <td>
-                @item.PriceMember
-            </td>
-            <td>
-                @item.PriceNonmember
-            </td>
-            <td>
-                @item.SpotsLeft
-            </td>
-            <td style='white-space:nowrap'>
-                <a class='btn btn-primary btn-sm' href='/Classes/Edit?name=@item.ClassName'>Register</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <div class="row">
+        @foreach (var classInfo in Model.programList)
+        {
+            <div class="col-lg-4  mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@classInfo.ClassName</h5>
+                        <p class="card-text"><strong>Description:</strong> @classInfo.ClassDescription</p>
+                        <p class="card-text"><strong>Dates:</strong> @classInfo.StartDate.ToString("MMM dd, yyyy") - @classInfo.EndDate.ToString("MMM dd, yyyy")</p>
+                        <p class="card-text"><strong>Day/Time:</strong> @classInfo.Days: @classInfo.StartTime.ToString("hh:mm tt") - @classInfo.EndTime.ToString("hh:mm tt")</p>
+                        <p class="card-text"><strong>Location:</strong> @classInfo.Location</p>
+                        <p class="card-text"><strong>Price (Member):</strong> $@classInfo.PriceMember</p>
+                        <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
+                        <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
+                        <a href="#" class="btn btn-primary">Register</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
