@@ -53,9 +53,36 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "End Time is required")]
         public DateTime EndTime { get; set; }
 
+        public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
+
         public void OnGet()
         {
-            
+            // try{
+            //     string connectionString = _configuration.GetConnectionString("Default");
+            //     using (MySqlConnection connection = new MySqlConnection(connectionString)){
+            //         connection.Open();
+
+            //         string sql = "SELECT * FROM staff WHERE is_active";
+
+            //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
+            //             using (MySqlDataReader reader = command.ExecuteReader()) {
+            //                 while (reader.Read()){
+            //                     Models.Staff staffInfo = new Models.Staff();
+
+            //                     staffInfo.StaffId = reader.GetInt32(0);
+            //                     staffInfo.Fname = reader.GetString(1);
+            //                     staffInfo.Lname = reader.GetString(2);
+
+            //                     StaffList.Add(staffInfo);
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            // }
+            // catch(Exception ex){
+            //     Console.WriteLine("We have an error: " + ex.Message);
+            // }
         }
 
         public void OnPost()
@@ -71,7 +98,7 @@ namespace YMCAProject.Pages.Admin
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();
 
-                    string sql = "Insert INTO programs " +
+                    string sql = "Insert INTO Programs " +
                         "(class_name, class_description, staff_id, price_member, price_nonmember, capacity, start_date, end_date, start_time, end_time) VALUES " +
                         "(@ClassName, @ClassDescription, @StaffId, @PriceMember, @PriceNonmember, @Capacity, @StartDate, @EndDate, @StartTime, @EndTime)";
 
