@@ -67,7 +67,7 @@ namespace YMCAProject.Pages.Admin
             //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
             //             using (MySqlDataReader reader = command.ExecuteReader()) {
             //                 while (reader.Read()){
-            //                     Models.Staff staffInfo = new Models.Staff();
+                     //          Models.Staff staffInfo = new Models.Staff();
 
             //                     staffInfo.StaffId = reader.GetInt32(0);
             //                     staffInfo.Fname = reader.GetString(1);

@@ -30,8 +30,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+[C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/LogoutModel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0TW9kZWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/MemberLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVtYmVyTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/Membership.cshtml]
@@ -48,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/StaffLoginModel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhZmZMb2dpbk1vZGVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/coleh/CS341/YMCAProject/YMCAProject/Pages/_ViewImports.cshtml]

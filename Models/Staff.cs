@@ -2,15 +2,16 @@ namespace YMCAProject.Models;
 
 public partial class Staff
 {
-    public int StaffId { get; set; }
+    public int staff_id { get; set; }
 
-    public string Fname { get; set; } = null!;
+    public string fname { get; set; } = null!;
 
-    public string Lname { get; set; } = null!;
+    public string lname { get; set; } = null!;
 
-    public string Email { get; set; } = null!;
+    public string email { get; set; } = null!;
 
-    public bool IsActive { get; set; }
+    public bool is_active { get; set; }
 
-    public bool IsAdmin { get; set; }
+    public bool is_admin { get; set; }
+    public string PasswordHash {get; set;} = null!;
 }
