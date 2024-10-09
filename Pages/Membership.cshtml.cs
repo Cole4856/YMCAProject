@@ -8,7 +8,6 @@ namespace YMCAProject.Pages;
 
 public class MembershipModel : PageModel
 {
-
     private readonly IConfiguration _configuration;
     public MembershipModel(IConfiguration configuration)
     {

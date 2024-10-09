@@ -19,15 +19,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post">
           <div class="mb-3">
-            <label for="memberEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="memberEmail" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <label asp-for="Email" class="form-label">Email address</label>
+            <input asp-for="Email" type="email" class="form-control" id="memberEmail">
+            <span asp-validation-for="Email" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label for="memberPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="memberPassword">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="memberPassword">
+            <span asp-validation-for="Password" class="text-danger"></span>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -50,15 +51,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form method="post">
           <div class="mb-3">
-            <label for="StaffEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="StaffEmail" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <label asp-for="Email" class="form-label">Email address</label>
+            <input asp-for="Email" type="email" class="form-control" id="StaffEmail" aria-describedby="emailHelp">
+            <span asp-validation-for="Email" class="text-danger"></span>
           </div>
           <div class="mb-3">
-            <label for="StaffPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="StaffPassword">
+            <label asp-for="Password" class="form-label">Password</label>
+            <input asp-for="Password" type="password" class="form-control" id="StaffPassword">
+            <span asp-validation-for="Password" class="text-danger"></span>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
