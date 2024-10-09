@@ -55,23 +55,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method="post">
                 <div class="mb-3">
                     <label for="MemberFirstName" class="form-label">First Name</label>
-                    <input type="name" class="form-control" id="MemberFirstName">
+                    <input type="name" class="form-control" id="MemberFirstName" asp-for="NewMember.FirstName">
                 </div>
                 <div class="mb-3">
                     <label for="MemberLastName" class="form-label">Last Name</label>
-                    <input type="name" class="form-control" id="MemberLastName">
+                    <input type="name" class="form-control" id="MemberLastName" asp-for="NewMember.LastName">
                 </div>
                 <div class="mb-3">
                     <label for="MemberEmail" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="MemberEmail" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <input type="email" class="form-control" id="MemberEmail" asp-for="NewMember.Email">
                 </div>
                 <div class="mb-3">
                     <label for="MemberPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="MemberPassword">
+                    <input type="password" class="form-control" id="MemberPassword" asp-for="NewMember.PasswordHash">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

@@ -2,17 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using YMCAProject.Models;
 
 namespace YMCAProject.Pages;
 
 public class MembershipModel : PageModel
 {
-    // private readonly ILogger<MembershipModel> _logger;
-
-    // public MembershipModel(ILogger<MembershipModel> logger)
-    // {
-    //     _logger = logger;
-    // }
 
     private readonly IConfiguration _configuration;
     public MembershipModel(IConfiguration configuration)
@@ -20,48 +15,56 @@ public class MembershipModel : PageModel
         _configuration = configuration;
     }
 
-    public List<Models.Member> memberList {get; set;} = [];
+    public Member NewMember { get; set; } = new Member();
 
+    public List<Member> memberList { get; set; } = new();
+
+    // Handle GET request
     public void OnGet()
     {
+        
+    }
+
+    // Handle POST request
+    public IActionResult OnPost() {
+        if (!ModelState.IsValid)
+        {
+            return Page(); // Re-render the page if form validation fails
+        }
+
         try {
-                string connectionString = _configuration.GetConnectionString("Default");
-                // "server=127.0.0.1;uid=ymca_proj;pwd=ymca@1234;database=ymca;";
+            string connectionString = _configuration.GetConnectionString("Default");
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString)){
-                    connection.Open();
+                // Insert new member into database
+                string sql = "INSERT INTO Members (MemberId, FirstName, LastName, Email, PasswordHash, IsActive, IsMember) VALUES (@MemberId, @FirstName, @LastName, @Email, @PasswordHash, @IsActive, @IsMember)";
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@MemberId", 1);
+                    command.Parameters.AddWithValue("@FirstName", NewMember.FirstName);
+                    command.Parameters.AddWithValue("@LastName", NewMember.LastName);
+                    command.Parameters.AddWithValue("@Email", NewMember.Email);
+                    command.Parameters.AddWithValue("@PasswordHash", NewMember.PasswordHash);
+                    command.Parameters.AddWithValue("@IsActive", true);
+                    command.Parameters.AddWithValue("@IsMember", true);
 
-                    string sql = "";
-
-                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
-                        using (MySqlDataReader reader = command.ExecuteReader()) {
-                            while (reader.Read()){
-                                while (reader.Read()){
-                                    Models.Member newMember = new Models.Member();
-
-                                    // classInfo.ProgramId = reader.GetInt32(0);
-                                    // classInfo.ClassName = reader.GetString(1);
-                                    // classInfo.ClassDescription = reader.GetString(2);
-                                    // classInfo.StaffId = reader.GetInt16(3);
-                                    // classInfo.PriceMember = reader.GetDouble(4);
-                                    // classInfo.PriceNonmember = reader.GetDouble(5);
-                                    // classInfo.Capacity = reader.GetInt32(6);
-                                    // classInfo.StartDate = reader.GetDateTime(7);
-                                    // classInfo.EndDate = reader.GetDateTime(8);
-                                    // classInfo.StartTime = reader.GetDateTime(9);
-                                    // classInfo.EndTime = reader.GetDateTime(10);
-
-                                    // classInfo.SpotsLeft = reader.GetInt32(11);
-
-                                    memberList.Add(newMember);
-                                }
-                            }
-                        }
-                    }
+                    command.ExecuteNonQuery();
                 }
+
+                Console.WriteLine($"Inserting: {NewMember.FirstName}, {NewMember.LastName}, {NewMember.Email}, IsActive: true");
             }
-        catch(Exception ex){
-            Console.WriteLine("We have an error: " + ex.Message);
-        }   
+
+            TempData["Message"] = "Membership sign-up successful!";
+            return RedirectToPage("/Membership");  // Redirect after successful sign-up
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            TempData["ErrorMessage"] = "There was an error signing up. Please try again.";
+            return Page(); // Stay on the page if there's an error
+        } 
+
     }
 }
