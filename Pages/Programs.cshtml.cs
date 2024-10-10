@@ -22,11 +22,68 @@ public class ProgramsModel : PageModel
 
     public List<Models.Programs> programList {get; set;} = [];
 
+    // Register button
+    public IActionResult OnPostRegisterClass(string className, int programId)
+    {
+        try{
+                string connectionString = _configuration.GetConnectionString("Default");
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString)){
+                    connection.Open();
+
+                    string sql = "SELECT Count(*) FROM Member_Programs " +
+                        "WHERE MemberId = @MemberId AND ProgramID = @ProgramId ";
+
+                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        command.Parameters.AddWithValue("@MemberId", 2);            //change to memberId!!!!!!!!
+                        command.Parameters.AddWithValue("@ProgramId", programId); 
+
+                        using (MySqlDataReader reader = command.ExecuteReader()) {
+                            reader.Read();
+                            int count = reader.GetInt32(0);
+
+                            if (count > 0){
+                                // Show a failure message 
+                                TempData["RegisterMessage"] = $"Error: you are already registered for {className}";
+                                TempData["MessageType"] = "error";
+                                
+                                // Redirect to the same page to show the message
+                                return RedirectToPage();
+                            }
+
+                        }
+                    }
+
+                    sql = "Insert INTO Member_Programs " +
+                        "(MemberId, ProgramId) VALUES " +
+                        "(@MemberId, @ProgramId)";
+
+                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        command.Parameters.AddWithValue("@MemberId", 2);  //change to memberId!!!!!!!!
+                        command.Parameters.AddWithValue("@ProgramId", programId); 
+                        
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch(Exception ex){
+                Console.WriteLine("We have an error: " + ex.Message);
+            }
+
+
+        // Show a success message 
+        TempData["RegisterMessage"] = $"You have successfully registered for {className}!";
+        TempData["MessageType"] = "success";
+        
+        // Redirect to the same page to show the message
+        return RedirectToPage();
+    }
+
     public void OnGet()
     {
         try{
                 string connectionString = _configuration.GetConnectionString("Default");
-                // "server=127.0.0.1;uid=ymca_proj;pwd=ymca@1234;database=ymca;";
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();
@@ -52,8 +109,11 @@ public class ProgramsModel : PageModel
                                 classInfo.EndDate = reader.GetDateTime(8);
                                 classInfo.StartTime = reader.GetDateTime(9);
                                 classInfo.EndTime = reader.GetDateTime(10);
+                                classInfo.Location = reader.GetString(11);
+                                classInfo.Days = reader.GetString(12);
 
-                                classInfo.SpotsLeft = reader.GetInt32(11);
+
+                                classInfo.SpotsLeft = reader.GetInt32(13);
 
                                 programList.Add(classInfo);
                             }

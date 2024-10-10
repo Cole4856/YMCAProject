@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "8VImXSv+FTk=",
+=======
+  "dgSpecHash": "0/MSIzu/EOU=",
+>>>>>>> c388e04da85b06803c0a485f6f2e37651232ed00
   "success": true,
   "projectFilePath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
   "expectedPackageFiles": [
