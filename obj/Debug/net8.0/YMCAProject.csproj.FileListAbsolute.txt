@@ -306,3 +306,4 @@ C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\refint\YMCAProject
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\YMCAProject.pdb
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\YMCAProject.genruntimeconfig.cache
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\ref\YMCAProject.dll
+C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
