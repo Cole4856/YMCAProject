@@ -1,10 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "8VImXSv+FTk=",
-=======
-  "dgSpecHash": "0/MSIzu/EOU=",
->>>>>>> c388e04da85b06803c0a485f6f2e37651232ed00
   "success": true,
   "projectFilePath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
   "expectedPackageFiles": [
@@ -126,5 +122,12 @@
     "C:\\Users\\coleh\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\coleh\\.nuget\\packages\\zstdsharp.port\\0.8.0\\zstdsharp.port.0.8.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

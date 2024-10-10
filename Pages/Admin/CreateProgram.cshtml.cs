@@ -64,7 +64,6 @@ namespace YMCAProject.Pages.Admin
         public void OnGet()
         {
 
-<<<<<<< HEAD
             //         string sql = "SELECT * FROM staff WHERE is_active";
 
             //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
@@ -86,8 +85,6 @@ namespace YMCAProject.Pages.Admin
             // catch(Exception ex){
             //     Console.WriteLine("We have an error: " + ex.Message);
             // }
-=======
->>>>>>> c388e04da85b06803c0a485f6f2e37651232ed00
         }
 
         public void OnPost()

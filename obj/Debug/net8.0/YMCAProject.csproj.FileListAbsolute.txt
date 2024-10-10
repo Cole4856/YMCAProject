@@ -202,6 +202,7 @@ C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\Mono.TextTemplatin
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\MySql.Data.dll
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\MySqlConnector.dll
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\MySqlConnector.DependencyInjection.dll
+C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\System.Composition.AttributedModel.dll
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\System.Composition.Convention.dll
@@ -306,4 +307,3 @@ C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\refint\YMCAProject
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\YMCAProject.pdb
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\YMCAProject.genruntimeconfig.cache
 C:\Users\coleh\CS341\YMCAProject\YMCAProject\obj\Debug\net8.0\ref\YMCAProject.dll
-C:\Users\coleh\CS341\YMCAProject\YMCAProject\bin\Debug\net8.0\Pomelo.EntityFrameworkCore.MySql.dll

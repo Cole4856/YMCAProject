@@ -9,6 +9,7 @@ public class IndexModel : PageModel
 
     public string username {get; set;} 
     public string usertype {get; set;}  
+    public string userId {get; set;}
 
     public IndexModel(ILogger<IndexModel> logger)
     {
@@ -20,9 +21,13 @@ public class IndexModel : PageModel
         if(User.Identity.IsAuthenticated){
             username = User.Identity.Name;
             usertype = User.FindFirst("UserType")?.Value;
+            userId = User.FindFirst("UserId")?.Value;
         }else{
             username = "failed";
             usertype = "failed";
+            userId = "No id found";
+
+            
         }
 
     }
