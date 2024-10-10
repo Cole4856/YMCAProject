@@ -8,6 +8,13 @@
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
 <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 
+@if (TempData["RegisterMessage"] != null)
+{
+    <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
+        @TempData["RegisterMessage"]
+    </div>
+}
+
 <div class="container">
     <div class="row">
         @foreach (var classInfo in Model.programList)
@@ -23,7 +30,12 @@
                         <p class="card-text"><strong>Price (Member):</strong> $@classInfo.PriceMember</p>
                         <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
-                        <a href="#" class="btn btn-primary">Register</a>
+
+                        <form method="post" asp-page-handler="RegisterClass">
+                            <input type="hidden" name="className" value="@classInfo.ClassName" />
+                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
                     </div>
                 </div>
             </div>
