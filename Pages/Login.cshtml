@@ -1,0 +1,19 @@
+﻿@page
+@model YMCAProject.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+<h2>Login</h2>
+<form method="post">
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <button type="submit">Login</button>
+</form>
