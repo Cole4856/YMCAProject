@@ -6,8 +6,9 @@
 
 <h1>Programs Page</h1>
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
+@if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
 <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
-
+}
 @if (TempData["RegisterMessage"] != null)
 {
     <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">

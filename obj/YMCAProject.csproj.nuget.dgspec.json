@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {}
+    "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj": {
+    "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
+        "projectUniqueName": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
         "projectName": "YMCAProject",
-        "projectPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\YMCAProject.csproj",
-        "packagesPath": "C:\\Users\\kylie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kylie\\OneDrive - University of Wisconsin-La Crosse\\24 - 25 Senior Year\\CS341\\YMCAProject\\obj\\",
+        "projectPath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\YMCAProject.csproj",
+        "packagesPath": "C:\\Users\\coleh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\coleh\\CS341\\YMCAProject\\YMCAProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kylie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\coleh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,6 +45,24 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -56,6 +74,10 @@
             "MySqlConnector.DependencyInjection": {
               "target": "Package",
               "version": "[2.3.6, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             }
           },
           "imports": [
@@ -77,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

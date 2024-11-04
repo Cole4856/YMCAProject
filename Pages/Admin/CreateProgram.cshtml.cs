@@ -64,6 +64,27 @@ namespace YMCAProject.Pages.Admin
         public void OnGet()
         {
 
+            //         string sql = "SELECT * FROM staff WHERE is_active";
+
+            //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
+            //             using (MySqlDataReader reader = command.ExecuteReader()) {
+            //                 while (reader.Read()){
+                     //          Models.Staff staffInfo = new Models.Staff();
+
+            //                     staffInfo.StaffId = reader.GetInt32(0);
+            //                     staffInfo.Fname = reader.GetString(1);
+            //                     staffInfo.Lname = reader.GetString(2);
+
+            //                     StaffList.Add(staffInfo);
+            //                 }
+            //             }
+            //         }
+            //     }
+
+            // }
+            // catch(Exception ex){
+            //     Console.WriteLine("We have an error: " + ex.Message);
+            // }
         }
 
         public void OnPost()

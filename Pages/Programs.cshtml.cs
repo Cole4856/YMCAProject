@@ -35,7 +35,7 @@ public class ProgramsModel : PageModel
                         "WHERE MemberId = @MemberId AND ProgramID = @ProgramId ";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
-                        command.Parameters.AddWithValue("@MemberId", 2);            //change to memberId!!!!!!!!
+                        command.Parameters.AddWithValue("@MemberId", int.Parse(User.FindFirst("UserId")?.Value));            //change to memberId!!!!!!!!
                         command.Parameters.AddWithValue("@ProgramId", programId); 
 
                         using (MySqlDataReader reader = command.ExecuteReader()) {
@@ -44,7 +44,7 @@ public class ProgramsModel : PageModel
 
                             if (count > 0){
                                 // Show a failure message 
-                                TempData["RegisterMessage"] = $"Error: you are already registered for {className}";
+                                TempData["RegisterMessage"] = $"Error: {User.Identity.Name} is already registered for {className}";
                                 TempData["MessageType"] = "error";
                                 
                                 // Redirect to the same page to show the message
@@ -59,7 +59,7 @@ public class ProgramsModel : PageModel
                         "(@MemberId, @ProgramId)";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
-                        command.Parameters.AddWithValue("@MemberId", 2);  //change to memberId!!!!!!!!
+                        command.Parameters.AddWithValue("@MemberId", int.Parse(User.FindFirst("UserId")?.Value));  //change to memberId!!!!!!!!
                         command.Parameters.AddWithValue("@ProgramId", programId); 
                         
                         command.ExecuteNonQuery();
@@ -73,7 +73,7 @@ public class ProgramsModel : PageModel
 
 
         // Show a success message 
-        TempData["RegisterMessage"] = $"You have successfully registered for {className}!";
+        TempData["RegisterMessage"] = $"{User.Identity.Name} successfully registered for {className}!";
         TempData["MessageType"] = "success";
         
         // Redirect to the same page to show the message
