@@ -16,6 +16,7 @@ builder.Services.AddAuthentication("MyCookieAuth")
     {
         options.LoginPath = "/Login"; // Redirect to login if not authenticated
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Set cookie expiration time
+        
     });
 
 builder.Services.AddRazorPages();
