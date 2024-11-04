@@ -1,0 +1,45 @@
+@page
+@model YMCAProject.Pages.ProgramsModel
+@{
+    ViewData["Title"] = "Programs";
+}
+
+<h1>Programs Page</h1>
+<p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
+@if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
+<a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
+}
+@if (TempData["RegisterMessage"] != null)
+{
+    <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
+        @TempData["RegisterMessage"]
+    </div>
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var classInfo in Model.programList)
+        {
+            <div class="col-lg-4  mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@classInfo.ClassName</h5>
+                        <p class="card-text"><strong>Description:</strong> @classInfo.ClassDescription</p>
+                        <p class="card-text"><strong>Dates:</strong> @classInfo.StartDate.ToString("MMM dd, yyyy") - @classInfo.EndDate.ToString("MMM dd, yyyy")</p>
+                        <p class="card-text"><strong>Day/Time:</strong> @classInfo.Days: @classInfo.StartTime.ToString("hh:mm tt") - @classInfo.EndTime.ToString("hh:mm tt")</p>
+                        <p class="card-text"><strong>Location:</strong> @classInfo.Location</p>
+                        <p class="card-text"><strong>Price (Member):</strong> $@classInfo.PriceMember</p>
+                        <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
+                        <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
+
+                        <form method="post" asp-page-handler="RegisterClass">
+                            <input type="hidden" name="className" value="@classInfo.ClassName" />
+                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
