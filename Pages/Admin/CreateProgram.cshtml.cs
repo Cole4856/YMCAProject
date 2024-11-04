@@ -32,13 +32,13 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "The Location is required")]
         public string Location { get; set; } = null!;
 
-        [BindProperty, Required(ErrorMessage = "The Price for Members is required")]
+        [BindProperty, Required(ErrorMessage = "The Price for Members is required"), Range(1, int.MaxValue, ErrorMessage = "The price must be greater than 0")]
         public double PriceMember { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "The Price for Non-members is required")]
+        [BindProperty, Required(ErrorMessage = "The Price for Non-members is required"), Range(1, int.MaxValue, ErrorMessage = "The price must be greater than 0")]
         public double PriceNonmember { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "Capacity is required")]
+        [BindProperty, Required(ErrorMessage = "Capacity is required"), Range(1, int.MaxValue, ErrorMessage = "The capacity must be greater than 0")]
         public int Capacity { get; set; }
 
         // [BindProperty, Required(ErrorMessage = "Staff ID is required")]
@@ -47,48 +47,72 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "The Day of Week is required")]
         public List<string> Days { get; set; } = null!;
 
-        [BindProperty, Required(ErrorMessage = "Start Date is required")]
+        [BindProperty, Required(ErrorMessage = "Start Date is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateStartDate))]
         public DateTime StartDate { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "End Date is required")]
+        [BindProperty, Required(ErrorMessage = "End Date is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndDate))]
         public DateTime EndDate { get; set; }
 
         [BindProperty, Required(ErrorMessage = "Start Time is required")]
         public DateTime StartTime { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "End Time is required")]
+        [BindProperty, Required(ErrorMessage = "End Time is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndTime))]
         public DateTime EndTime { get; set; }
 
         public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
 
-        public void OnGet()
+
+        /*
+         * Data Validation
+        */
+        // Start Date
+        public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)
         {
+            if (startDate <= DateTime.Today)
+            {   
+                Console.WriteLine($"Start Date: {startDate}");
+                return new ValidationResult("Start date must be after today");
+            }
 
-            //         string sql = "SELECT * FROM staff WHERE is_active";
-
-            //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
-            //             using (MySqlDataReader reader = command.ExecuteReader()) {
-            //                 while (reader.Read()){
-                     //          Models.Staff staffInfo = new Models.Staff();
-
-            //                     staffInfo.StaffId = reader.GetInt32(0);
-            //                     staffInfo.Fname = reader.GetString(1);
-            //                     staffInfo.Lname = reader.GetString(2);
-
-            //                     StaffList.Add(staffInfo);
-            //                 }
-            //             }
-            //         }
-            //     }
-
-            // }
-            // catch(Exception ex){
-            //     Console.WriteLine("We have an error: " + ex.Message);
-            // }
+            return ValidationResult.Success;
         }
+        // End Date
+        public static ValidationResult ValidateEndDate(DateTime endDate, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as CreateProgram;
+            if (instance != null && instance.StartDate >= endDate)
+            {
+                Console.WriteLine($"Start Date: {instance.StartDate}");
+                Console.WriteLine($"End Date: {endDate}");
+                return new ValidationResult("End date must be after start date");
+            }
+
+            return ValidationResult.Success;
+        }
+        // End Time
+        public static ValidationResult ValidateEndTime(DateTime endTime, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as CreateProgram;
+
+            if (instance != null && instance.StartTime >= endTime)
+            {
+                Console.WriteLine($"Start Time: {instance.StartTime}");
+                Console.WriteLine($"End Time: {endTime}");
+                return new ValidationResult("End time must be after start time");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public void OnGet()
+        {        }
 
         public void OnPost()
         {
+            if (Days.Count < 1 || Days[0] is null)
+            {
+                ModelState.AddModelError("Days", "The Day of Week is required");
+            }
             if (!ModelState.IsValid){
                 Console.WriteLine("Error: Model State is not valid");
                 return;
