@@ -16,6 +16,41 @@
     </div>
 }
 
+<form method="get">
+    <div class="row mb-4">
+        <!-- Search by Program Name -->
+        <div class="col-md-5">
+            <input type="text" name="searchName" class="form-control" placeholder="Search by Program Name" value="@Model.SearchName" /> 
+        </div>
+
+        <!-- Filter by Day of the Week -->
+        <div class="col-md-3">
+            <label for="dayOfWeek">Select Days of the Week</label>
+            <select name="dayOfWeek" class="form-control" multiple>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
+
+        <!-- Start Date Range -->
+        <div class="col-md-2">
+            <label for="startDateFrom">Start Date From</label>
+            <input type="date" name="startDateFrom" class="form-control" placeholder="Start Date From"  value="@Model.StartDateFrom?.ToString("yyyy-MM-dd")"/>
+        </div>
+        <div class="col-md-2">
+            <label for="startDateTo">Start Date To</label>
+            <input type="date" name="startDateTo" class="form-control" placeholder="Start Date To" value="@Model.StartDateTo?.ToString("yyyy-MM-dd")" />
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mb-3">Filter</button>
+</form>
+
 <div class="container">
     <div class="row">
         @foreach (var classInfo in Model.programList)
@@ -32,14 +67,20 @@
                         <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
 
-                        <form method="post" asp-page-handler="RegisterClass">
-                            <input type="hidden" name="className" value="@classInfo.ClassName" />
-                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
+                        @if (@classInfo.SpotsLeft > 0){
+                            <form method="post" asp-page-handler="RegisterClass">
+                                <input type="hidden" name="className" value="@classInfo.ClassName" />
+                                <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                                <input type="hidden" name="startDate" value="@classInfo.StartDate" />
+                                <input type="hidden" name="startTime" value="@classInfo.StartTime" />
+                                <input type="hidden" name="days" value="@classInfo.Days" />
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
