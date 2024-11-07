@@ -35,7 +35,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <a class="nav-link text-dark" asp-area="" asp-page="/MemberDashboard">Member Dashboard</a>
+                    @if (User.Identity.IsAuthenticated) {
+                        <a class="nav-link text-dark" asp-area="" asp-page="/MemberDashboard">Member Dashboard</a>
+                    }
                     <partial name="_LoginPartial"></partial>
                 </div>
             </div>

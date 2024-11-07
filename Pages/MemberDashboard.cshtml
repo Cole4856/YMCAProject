@@ -5,7 +5,7 @@
 }
 
 <h1>Member Dashboard</h1>
-<p>Welcome [insert users name]. Here you can view all of the programs you are registered for!</p>
+<p>Welcome @User.Identity.Name! Here you can view all of the programs you are registered for!</p>
 @* @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
 <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 }
@@ -28,15 +28,14 @@
                         <p class="card-text"><strong>Dates:</strong> @classInfo.StartDate.ToString("MMM dd, yyyy") - @classInfo.EndDate.ToString("MMM dd, yyyy")</p>
                         <p class="card-text"><strong>Day/Time:</strong> @classInfo.Days: @classInfo.StartTime.ToString("hh:mm tt") - @classInfo.EndTime.ToString("hh:mm tt")</p>
                         <p class="card-text"><strong>Location:</strong> @classInfo.Location</p>
-                        <p class="card-text"><strong>Price (Member):</strong> $@classInfo.PriceMember</p>
-                        <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
-
-                        <form method="post" asp-page-handler="RegisterClass">
+                        
+                        @* TODO: change to cancel button *@
+                        @* <form method="post" asp-page-handler="RegisterClass">
                             <input type="hidden" name="className" value="@classInfo.ClassName" />
                             <input type="hidden" name="programId" value="@classInfo.ProgramId" />
                             <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
+                        </form> *@
                     </div>
                 </div>
             </div>
