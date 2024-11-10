@@ -21,6 +21,8 @@ public class MemberDashboard : PageModel
     }
 
     public List<Models.Programs> programList {get; set;} = [];
+    public int IsMember { get; set; } //Property to store the isMember value
+    public String FirstName {get; set;} //Store first name
 
     //TODO: change to cancel button
     // Register button
@@ -94,6 +96,23 @@ public class MemberDashboard : PageModel
                     //get the currently logged in users ID
                     int memberId = int.Parse(User.FindFirst("UserId")?.Value);
 
+                    //Query to get isMember status
+                    string memberQuery = "SELECT isMember FROM ymca.Members WHERE MemberId = @UserId";
+                    using (MySqlCommand memberCommand = new MySqlCommand(memberQuery, connection))
+                    {
+                        memberCommand.Parameters.AddWithValue("@UserId", memberId);
+                        IsMember = Convert.ToInt32(memberCommand.ExecuteScalar());
+                    }
+
+                    //Query to get first name
+                    string nameQuery = "SELECT isMember FROM ymca.Members WHERE MemberId = @UserId";
+                    using (MySqlCommand memberCommand = new MySqlCommand(nameQuery, connection))
+                    {
+                        memberCommand.Parameters.AddWithValue("@UserId", memberId);
+                        FirstName = memberCommand.ExecuteScalar()?.ToString();
+                    }
+
+                    //Query to get program details
                     string sql = @"SELECT p.*, 
                        (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`
                 FROM ymca.Programs p

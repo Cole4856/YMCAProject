@@ -4,8 +4,12 @@
     ViewData["Title"] = "MemberDashboard";
 }
 
-<h1>Member Dashboard</h1>
-<p>Welcome @User.Identity.Name! Here you can view all of the programs you are registered for!</p>
+@if (User.Identity.IsAuthenticated) {
+    <h1>@(Model.IsMember == 1 ? "Member Dashboard" : "User Dashboard")</h1>
+}
+<p>Welcome @Model.FirstName! Here you can view all of the programs you are registered for!</p>
+@* <h1>Member Dashboard</h1>
+<p>Welcome @User.Identity.Name! Here you can view all of the programs you are registered for!</p> *@
 @* @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
 <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 }
@@ -28,7 +32,6 @@
                         <p class="card-text"><strong>Dates:</strong> @classInfo.StartDate.ToString("MMM dd, yyyy") - @classInfo.EndDate.ToString("MMM dd, yyyy")</p>
                         <p class="card-text"><strong>Day/Time:</strong> @classInfo.Days: @classInfo.StartTime.ToString("hh:mm tt") - @classInfo.EndTime.ToString("hh:mm tt")</p>
                         <p class="card-text"><strong>Location:</strong> @classInfo.Location</p>
-                        <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
                         
                         @* TODO: change to cancel button *@
                         @* <form method="post" asp-page-handler="RegisterClass">
