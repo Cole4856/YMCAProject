@@ -4,6 +4,20 @@
     ViewData["Title"] = "Programs";
 }
 
+<style>
+    @* .card {
+        background-color: #e9ecef;
+        border: none;
+    } *@
+
+    .filter-form {
+        background-color: #f1f1f1; /* Light gray background */
+        padding: 15px;
+        border-radius: 8px; /* Optional: Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    }
+</style>
+
 <h1>Programs Page</h1>
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
 @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
@@ -16,17 +30,18 @@
     </div>
 }
 
-<form method="get">
+<form method="get" class="filter-form">
     <div class="row mb-4">
         <!-- Search by Program Name -->
         <div class="col-md-5">
-            <input type="text" name="searchName" class="form-control" placeholder="Search by Program Name" value="@Model.SearchName" /> 
+            <label for="searchName">Search by Keyword</label>
+            <input type="text" name="searchName" class="form-control" placeholder="Program Name" value="@Model.SearchName" /> 
         </div>
 
         <!-- Filter by Day of the Week -->
         <div class="col-md-3">
             <label for="dayOfWeek">Select Days of the Week</label>
-            <select name="dayOfWeek" class="form-control" multiple>
+            <select name="dayOfWeek" class="form-control" multiple size=7>
                 <option value="Monday">Monday</option>
                 <option value="Tuesday">Tuesday</option>
                 <option value="Wednesday">Wednesday</option>
@@ -41,15 +56,19 @@
         <div class="col-md-2">
             <label for="startDateFrom">Start Date From</label>
             <input type="date" name="startDateFrom" class="form-control" placeholder="Start Date From"  value="@Model.StartDateFrom?.ToString("yyyy-MM-dd")"/>
-        </div>
-        <div class="col-md-2">
-            <label for="startDateTo">Start Date To</label>
+        @* </div>
+        <div class="col-md-2"> *@
+            <label for="startDateTo" style="margin-top: 20px;">Start Date To</label>
             <input type="date" name="startDateTo" class="form-control" placeholder="Start Date To" value="@Model.StartDateTo?.ToString("yyyy-MM-dd")" />
         </div>
+
+        <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-primary mb-3">Filter</button>
+        </div>
     </div>
-    
-    <button type="submit" class="btn btn-primary mb-3">Filter</button>
 </form>
+
+<div style="height: 20px;"></div>
 
 <div class="container">
     <div class="row">
