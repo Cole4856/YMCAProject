@@ -87,13 +87,13 @@
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Start Date*</label>
                 <div class="col-sm-4">
-                    <input class="form-control" asp-for="StartDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+                    <input class="form-control" asp-for="StartDate" type="date" />
                     <span asp-validation-for="StartDate" class="text-danger"></span>
                 </div>
       
                 <label class="col-sm-2 col-form-label">End Date*</label>
                 <div class="col-sm-4">
-                    <input class="form-control" asp-for="EndDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")"/>
+                    <input class="form-control" asp-for="EndDate" type="date" />
                     <span asp-validation-for="EndDate" class="text-danger"></span>
                 </div>
             </div>
