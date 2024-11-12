@@ -124,12 +124,6 @@ public class ProgramsModel : PageModel
 
     public void OnGet()
     {
-        // // testing - delete later
-        // Console.WriteLine(SearchName);
-        // Console.WriteLine(DayOfWeek[0]);  //need to check if null
-        // Console.WriteLine(StartDateFrom);
-        // Console.WriteLine(StartDateTo);
-        // ///////
         try{
             string connectionString = _configuration.GetConnectionString("Default");
 
@@ -139,7 +133,7 @@ public class ProgramsModel : PageModel
                 string sql = "SELECT p.*, (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`" +
                     "FROM ymca.Programs p LEFT JOIN ( " +
                         "SELECT ProgramId, COUNT(MemberId) AS registered_count FROM Member_Programs GROUP BY ProgramId" +
-                    ") m ON p.program_id = m.ProgramId;";
+                    ") m ON p.program_id = m.ProgramId ORDER BY p.class_name;";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection)){
                     using (MySqlDataReader reader = command.ExecuteReader()) {

@@ -86,7 +86,7 @@
                         <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
 
-                        @if (@classInfo.SpotsLeft > 0){
+                        @if ((@classInfo.SpotsLeft > 0) && (@classInfo.StartDate > @DateTime.Now)){
                             <form method="post" asp-page-handler="RegisterClass">
                                 <input type="hidden" name="className" value="@classInfo.ClassName" />
                                 <input type="hidden" name="programId" value="@classInfo.ProgramId" />
