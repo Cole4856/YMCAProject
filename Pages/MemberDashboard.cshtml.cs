@@ -105,7 +105,7 @@ public class MemberDashboard : PageModel
                     }
 
                     //Query to get first name
-                    string nameQuery = "SELECT isMember FROM ymca.Members WHERE MemberId = @UserId";
+                    string nameQuery = "SELECT FirstName FROM ymca.Members WHERE MemberId = @UserId";
                     using (MySqlCommand memberCommand = new MySqlCommand(nameQuery, connection))
                     {
                         memberCommand.Parameters.AddWithValue("@UserId", memberId);
