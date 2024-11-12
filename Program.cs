@@ -27,7 +27,7 @@ var app = builder.Build();
 app.UseRouting();
 app.UseAuthentication(); // Add this line
 app.UseAuthorization(); // Ensure this is after UseAuthentication
-
+app.UseStaticFiles();
 app.MapRazorPages();
 
 app.Run();
