@@ -1,27 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Org.BouncyCastle.Asn1.Esf;
-using Microsoft.Extensions.Configuration; // For configuration
 using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace YMCAProject.Pages.Admin
 {
-    
-    public class CreateProgram : PageModel
+    public class ModifyProgram : PageModel
     {
-        private readonly IConfiguration _configuration;
-        public CreateProgram(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        // public string ErrorMessage { get; set; }
+        public int ProgramId {get; set;}
 
         [BindProperty, Required(ErrorMessage = "The Program Name is required")]
         public string ClassName { get; set; } = null!;
@@ -58,9 +50,6 @@ namespace YMCAProject.Pages.Admin
 
         [BindProperty, Required(ErrorMessage = "End Time is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndTime))]
         public DateTime EndTime { get; set; }
-
-        public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
-
 
         /*
          * Data Validation
@@ -104,60 +93,10 @@ namespace YMCAProject.Pages.Admin
             return ValidationResult.Success;
         }
 
-        public void OnGet()
-        {        }
-
-        public void OnPost()
+        public void OnGet(int programId)
         {
-            if (Days.Count < 1 || Days[0] is null)
-            {
-                ModelState.AddModelError("Days", "The Day of Week is required");
-            }
-            if (!ModelState.IsValid){
-                Console.WriteLine("Error: Model State is not valid");
-                return;
-            }
+            ProgramId = programId;
 
-            string daysAsString = string.Join(",", Days);
-
-            //create new program
-            try{
-                string connectionString = _configuration.GetConnectionString("Default");
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString)){
-                    connection.Open();
-
-                    string sql = "Insert INTO Programs " +
-                        "(class_name, class_description, staff_id, price_member, price_nonmember, capacity, start_date, end_date, start_time, end_time, location, days, status) VALUES " +
-                        "(@ClassName, @ClassDescription, @StaffId, @PriceMember, @PriceNonmember, @Capacity, @StartDate, @EndDate, @StartTime, @EndTime, @Location, @Days, @Status)";
-
-                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
-                        command.Parameters.AddWithValue("@ClassName", ClassName);
-                        command.Parameters.AddWithValue("@ClassDescription", ClassDescription); 
-                        command.Parameters.AddWithValue("@StaffId", 1);
-                        command.Parameters.AddWithValue("@PriceMember", PriceMember); 
-                        command.Parameters.AddWithValue("@PriceNonmember", PriceNonmember); 
-                        command.Parameters.AddWithValue("@Capacity", Capacity); 
-                        command.Parameters.AddWithValue("@StartDate", StartDate); 
-                        command.Parameters.AddWithValue("@EndDate", EndDate); 
-                        command.Parameters.AddWithValue("@StartTime", StartTime); 
-                        command.Parameters.AddWithValue("@EndTime", EndTime);
-                        command.Parameters.AddWithValue("@Location", Location); 
-                        command.Parameters.AddWithValue("@Days", daysAsString);
-                        command.Parameters.AddWithValue("@Status", 1);
-                        
-                        command.ExecuteNonQuery();
-                    }
-                }
-
-            }
-            catch(Exception ex){
-                // ErrorMessage = ex.Message;
-                Console.WriteLine("We have an error: " + ex.Message);
-                return;
-            }
-
-            Response.Redirect("/Programs");
         }
     }
 }
