@@ -145,6 +145,7 @@ public class MemberDashboard : PageModel
                                 classInfo.Location = reader.GetString(11);
                                 classInfo.Days = reader.GetString(12);
                                 classInfo.SpotsLeft = reader.GetInt32(13);
+                                classInfo.Status = reader.GetInt32(13);
 
                                 programList.Add(classInfo);
                             }
