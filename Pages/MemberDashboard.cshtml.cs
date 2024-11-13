@@ -106,7 +106,7 @@ public class MemberDashboard : PageModel
                     }
 
                     //Query to get first name
-                    string nameQuery = "SELECT isMember FROM ymca.Members WHERE MemberId = @UserId";
+                    string nameQuery = "SELECT FirstName FROM ymca.Members WHERE MemberId = @UserId";
                     using (MySqlCommand memberCommand = new MySqlCommand(nameQuery, connection))
                     {
                         memberCommand.Parameters.AddWithValue("@UserId", memberId);
@@ -151,6 +151,7 @@ public class MemberDashboard : PageModel
                                 classInfo.Location = reader.GetString(11);
                                 classInfo.Days = reader.GetString(12);
                                 classInfo.SpotsLeft = reader.GetInt32(13);
+                                classInfo.Status = reader.GetInt32(13);
 
                                 programList.Add(classInfo);
                             }
