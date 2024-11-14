@@ -69,7 +69,7 @@ public class ProgramsModel : PageModel
                             "JOIN Member_Programs mp on p.program_id = mp.ProgramId " +
                             "WHERE mp.MemberId = @MemberId " +
                                 "AND (@startDate BETWEEN p.start_date AND p.end_date) " +
-                                "AND (@startTime BETWEEN TIME(p.start_time) AND TIME(p.end_time))";
+                                "AND (TIME(@startTime) BETWEEN TIME(p.start_time) AND TIME(p.end_time))";
 
                     string[] dayArray = days.Split(',');
 
@@ -79,22 +79,25 @@ public class ProgramsModel : PageModel
                         command.Parameters.AddWithValue("@startTime", startTime); 
 
                         using (MySqlDataReader reader = command.ExecuteReader()) {
-                            reader.Read();
-                            string programDays = reader.GetString(2);
+                            while(reader.Read()){
+                                string curClass = reader.GetString(1);
+                                string programDays = reader.GetString(2);
 
-                            foreach (var day in dayArray)
-                            {
-                                int index = programDays.IndexOf(day);
-                                if (index != -1){
-                                    // Show a failure message 
-                                    TempData["RegisterMessage"] = $"Error: unable to register for {className} because it overlaps with {reader.GetString(1)}";
-                                    TempData["MessageType"] = "error";
-                                    
-                                    // Redirect to the same page to show the message
-                                    return RedirectToPage();
+                                foreach (var day in dayArray)
+                                {
+                                    int index = programDays.IndexOf(day);
+                                    if (index != -1){
+                                        // Show a failure message 
+                                        TempData["RegisterMessage"] = $"Error: unable to register for {className} because it overlaps with {curClass}";
+                                        TempData["MessageType"] = "error";
+                                        
+                                        // Redirect to the same page to show the message
+                                        return RedirectToPage();
+                                    }
+
                                 }
-
                             }
+                            
                         }
                     }
 
