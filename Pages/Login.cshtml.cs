@@ -28,6 +28,7 @@ namespace YMCAProject.Pages
         {
             if (!ModelState.IsValid)
             {
+
                 return Page();
             }
 
@@ -64,7 +65,7 @@ namespace YMCAProject.Pages
             
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError("Password", "Invalid login attempt.");
             return Page();
         }
 
