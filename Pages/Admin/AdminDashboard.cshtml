@@ -12,6 +12,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Member Status</th>
             <th>View Classes</th>
         </tr>
     @foreach (var member in Model.memberList){
@@ -20,6 +21,8 @@
             <td>@member.FirstName</td>
             <td>@member.LastName</td>
             <td>@member.Email</td>
+            <td>@(member.IsMember ? "Member" : "Non-Member")</td>
+            
             <td><a class='btn btn-primary mb-3' href='/MemberDashboard?id=@member.MemberId'>View Programs</a></td>
 
         </tr>
