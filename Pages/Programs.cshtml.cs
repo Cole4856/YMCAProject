@@ -19,6 +19,9 @@ public class ProgramsModel : PageModel
     [BindProperty(SupportsGet = true)]
     public DateTime? StartDateTo { get; set; } = DateTime.Today.AddYears(1); // default to year after today
 
+    [BindProperty(SupportsGet = true)]
+    public int Status { get; set; } = 1;
+
     private readonly IConfiguration _configuration;
     public ProgramsModel(IConfiguration configuration)
     {
@@ -122,6 +125,39 @@ public class ProgramsModel : PageModel
         return RedirectToPage();
     }
 
+    // Cancel button
+    public IActionResult OnPostCancelClass(int programId, string className)
+    {
+        try{
+                string connectionString = _configuration.GetConnectionString("Default");
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString)){
+                    connection.Open();
+
+                    // change status to 0
+                    string sql = "UPDATE Programs SET status = 0 " +
+                                "WHERE program_id = @ProgramId ";
+
+                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        command.Parameters.AddWithValue("@ProgramId", programId); 
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch(Exception ex){
+                Console.WriteLine("We have an error: " + ex.Message);
+            }
+
+
+        // Show a success message 
+        TempData["RegisterMessage"] = $"Success: {className} has been canceled and all members will be notified on their dashboard";
+        TempData["MessageType"] = "success";
+        
+        // Redirect to the same page to show the message
+        return RedirectToPage();
+    }
     public void OnGet()
     {
         try{
@@ -133,9 +169,11 @@ public class ProgramsModel : PageModel
                 string sql = "SELECT p.*, (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`" +
                     "FROM ymca.Programs p LEFT JOIN ( " +
                         "SELECT ProgramId, COUNT(MemberId) AS registered_count FROM Member_Programs GROUP BY ProgramId" +
-                    ") m ON p.program_id = m.ProgramId ORDER BY p.class_name;";
+                    ") m ON p.program_id = m.ProgramId WHERE status = @Status ORDER BY p.class_name;";
 
                 using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                    command.Parameters.AddWithValue("@Status", Status);
+
                     using (MySqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()){
                             Models.Programs classInfo = new Models.Programs();
@@ -153,8 +191,8 @@ public class ProgramsModel : PageModel
                             classInfo.EndTime = reader.GetDateTime(10);
                             classInfo.Location = reader.GetString(11);
                             classInfo.Days = reader.GetString(12);
-
-                            classInfo.SpotsLeft = reader.GetInt32(13);
+                            classInfo.Status = reader.GetInt16(13);
+                            classInfo.SpotsLeft = reader.GetInt32(14);
 
                             bool addClass = true;
                             if ((SearchName != null) && classInfo.ClassName.IndexOf(SearchName, StringComparison.OrdinalIgnoreCase) == -1){
