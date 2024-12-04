@@ -1,6 +1,7 @@
 using System.Dynamic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Mvc;
 
 namespace YMCAProject.Pages.Admin
 {
@@ -14,6 +15,40 @@ public class AdminDashboard : PageModel
     }
 
     public List<Models.Member> memberList {get; set;} = [];
+
+    // Remove User button
+    public IActionResult OnPostDeleteUser(int memberId, string fname, string lname){
+
+        try{
+                string connectionString = _configuration.GetConnectionString("Default");
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString)){
+                    connection.Open();
+
+                    // adjust isActive member value
+                    string sql = "UPDATE Members " +
+                        "SET IsActive = 0 " +
+                        "WHERE MemberId = @MemberId";
+
+                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        command.Parameters.AddWithValue("@MemberId", memberId);
+                        
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            catch(Exception ex){
+                Console.WriteLine("We have an error: " + ex.Message);
+            }
+
+        // Show a success message 
+        TempData["RegisterMessage"] = $"{fname} {lname} has been successfully removed";
+        TempData["MessageType"] = "success";
+        
+        // Redirect to the same page to show the message
+        return RedirectToPage();
+    }
 
     public void OnGet(){
         try{
