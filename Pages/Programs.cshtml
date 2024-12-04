@@ -111,18 +111,34 @@
                             }
                             @* if member/nonmember, show register button *@
                             else{
-                                <div class="offset-sm-8 col-sm-4 d-grid">
                                     @if ((@classInfo.SpotsLeft > 0) && (@classInfo.StartDate > @DateTime.Now)){
                                         <form method="post" asp-page-handler="RegisterClass">
+                                            <div class= "row align-items-center">
+                                                <!-- Family Dropdown -->
+                                                <div class="col-sm-8">
+                                                    <label for="dropdownOption" class="form-label visually-hidden">Family Member:</label>
+                                                    <select id="dropdownOption" name="memberId" class="form-select" required>
+                                                        <option value="" disabled selected>Select a Family Member</option>
+                                                        @foreach (var option in Model.FamilyMembers)
+                                                        {
+                                                            <option value="@option.MemberId">@option.FirstName @option.LastName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <!-- Register Button  -->
+                                                <div class="col-sm-4">
+                                                    <button type="submit" class="btn btn-primary">Register</button>
+                                                </div>
+                                            </div>
+
                                             <input type="hidden" name="className" value="@classInfo.ClassName" />
                                             <input type="hidden" name="programId" value="@classInfo.ProgramId" />
                                             <input type="hidden" name="startDate" value="@classInfo.StartDate" />
                                             <input type="hidden" name="startTime" value="@classInfo.StartTime" />
                                             <input type="hidden" name="days" value="@classInfo.Days" />
-                                            <button type="submit" class="btn btn-primary">Register</button>
                                         </form>
                                     }
-                                </div>
+                                
                             }
                             
                         </div>
@@ -135,3 +151,34 @@
     </div>
 </div>
 
+@* <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const registerButtons = document.querySelectorAll(".register-btn");
+
+        registerButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const className = this.dataset.className;
+                const programId = this.dataset.programId;
+                const startDate = this.dataset.startDate;
+
+                const confirmAction = confirm(`Are you sure you want to enroll in "${className}"?`);
+                if (confirmAction) {
+                    // Submit a hidden form or redirect to a handler
+                    const form = document.createElement("form");
+                    form.method = "post";
+                    form.action = "/YourPageName?handler=RegisterClass";
+
+                    // Add hidden inputs for necessary data
+                    form.innerHTML = `
+                        <input type="hidden" name="className" value="${className}" />
+                        <input type="hidden" name="programId" value="${programId}" />
+                        <input type="hidden" name="startDate" value="${startDate}" />
+                    `;
+
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+    });
+</script> *@
