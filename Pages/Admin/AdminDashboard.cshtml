@@ -6,6 +6,13 @@
 
 <h1> Admin Dashboard</h1>
 
+@if (TempData["RegisterMessage"] != null)
+{
+    <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
+        @TempData["RegisterMessage"]
+    </div>
+}
+
 <div class="container">
     <table style="border: 1px black solid">
         <tr>
@@ -13,6 +20,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>View Classes</th>
+            <th>Edit User</th>
         </tr>
     @foreach (var member in Model.memberList){
         if(member.IsActive == false) {continue;} //skip inactive members
@@ -21,8 +29,13 @@
             <td>@member.LastName</td>
             <td>@member.Email</td>
             <td><a class='btn btn-primary mb-3' href='/MemberDashboard?id=@member.MemberId'>View Programs</a></td>
-
-        </tr>
+            <td><form method="post" asp-page-handler="DeleteUser">
+                <input type="hidden" name="memberId" value="@member.MemberId" />
+                <input type="hidden" name="fname" value="@member.FirstName" />
+                <input type="hidden" name="lname" value="@member.LastName" />
+                <button type="submit" class="btn btn-outline-primary">Remove User</button>
+            </form></td>
+        </tr> 
 
     }
     </table>
