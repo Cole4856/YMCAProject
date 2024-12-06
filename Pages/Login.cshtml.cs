@@ -5,17 +5,22 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace YMCAProject.Pages
 {
     public class LoginModel : PageModel
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly PasswordHasher<string> _passwordHasher;
 
         public LoginModel(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            _passwordHasher = new PasswordHasher<string>();
         }
+
+
 
        [BindProperty, Required(ErrorMessage = "Email is required")]
         public string Email {get; set;} = null!;
@@ -28,6 +33,7 @@ namespace YMCAProject.Pages
         {
             if (!ModelState.IsValid)
             {
+
                 return Page();
             }
 
@@ -43,28 +49,32 @@ namespace YMCAProject.Pages
             //Validate user credentials
             if (member != null && VerifyPassword(Password, member.PasswordHash))
             {
-                if(member.IsMember){
-                    SignInUser(member.Email, "Member", member.MemberId.ToString());
-                    return RedirectToPage("/Index"); // Redirect after successful login
-                }else{
-                    SignInUser(member.Email, "non-member", member.MemberId.ToString());
-                    return RedirectToPage("/Index");
+                if(member.IsActive){
+                    if(member.IsMember){
+                        SignInUser(member.Email, "Member", member.MemberId.ToString());
+                        return RedirectToPage("/Index"); // Redirect after successful login
+                    }else{
+                        SignInUser(member.Email, "non-member", member.MemberId.ToString());
+                        return RedirectToPage("/Index");
+                    }
                 }
             }
             else 
             if (staff != null && VerifyPassword(Password, staff.PasswordHash))
             {
-                if(!staff.is_admin){
-                    SignInUser(staff.Email, "Staff", staff.StaffId.ToString());
-                    return RedirectToPage("/Index"); // Redirect after successful login
-                }else{
-                    SignInUser(staff.Email, "Admin", staff.StaffId.ToString());
-                    return RedirectToPage("Index");
+                if(staff.is_active){
+                    if(!staff.is_admin){
+                        SignInUser(staff.Email, "Staff", staff.StaffId.ToString());
+                        return RedirectToPage("/Index"); // Redirect after successful login
+                    }else{
+                        SignInUser(staff.Email, "Admin", staff.StaffId.ToString());
+                        return RedirectToPage("Index");
+                    }
                 }
             
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError("Password", "Invalid login attempt.");
             return Page();
         }
 
@@ -86,10 +96,10 @@ namespace YMCAProject.Pages
            await HttpContext.SignInAsync("MyCookieAuth", principal);
         }
 
-        private bool VerifyPassword(string password, string passwordHash)
+        private bool VerifyPassword(string providedPassword, string storedHash)
         {
-            //here to later add hashing as I'm sure the project will require at some point
-            if(password.Equals(passwordHash)){
+            var result = _passwordHasher.VerifyHashedPassword(null, storedHash, providedPassword);
+            if(result == PasswordVerificationResult.Success){
                 return true;
             }
             return false;

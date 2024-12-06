@@ -1,0 +1,62 @@
+@page
+@model YMCAProject.Pages.Admin.AdminDashboard
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1> Admin Dashboard</h1>
+
+@if (TempData["RegisterMessage"] != null)
+{
+    <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
+        @TempData["RegisterMessage"]
+    </div>
+}
+
+<div class="container">
+    <table style="border: 1px black solid">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Member Status</th>
+            <th>View Classes</th>
+            <th>Edit User</th>
+        </tr>
+    @foreach (var member in Model.memberList){
+        if(member.IsActive == false) {continue;} //skip inactive members
+        <tr>
+            <td>@member.FirstName</td>
+            <td>@member.LastName</td>
+            <td>@member.Email</td>
+            <td>@(member.IsMember ? "Member" : "Non-Member")</td>
+            
+            <td><a class='btn btn-primary mb-3' href='/MemberDashboard?id=@member.MemberId'>View Programs</a></td>
+            <td><form method="post" asp-page-handler="DeleteUser">
+                <input type="hidden" name="memberId" value="@member.MemberId" />
+                <input type="hidden" name="fname" value="@member.FirstName" />
+                <input type="hidden" name="lname" value="@member.LastName" />
+                <button type="submit" class="btn btn-outline-primary">Remove User</button>
+            </form></td>
+        </tr> 
+
+    }
+    </table>
+</div>        
+
+<style>
+    table{
+        align-items: center;
+        width: 100%;
+        border: solid 1px black;
+
+    }
+
+    tr{border-bottom: solid 1px black;}
+
+    tr:nth-child(2n){background-color: lightgray;}
+
+    a{padding-top:10px;}
+
+    
+</style>

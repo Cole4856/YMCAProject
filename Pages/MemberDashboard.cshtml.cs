@@ -84,7 +84,7 @@ public class MemberDashboard : PageModel
     // }
 
     //display users programs that they are signed up for
-    public void OnGet()
+    public void OnGet(string? id = null)
     {
         try{
                 string connectionString = _configuration.GetConnectionString("Default");
@@ -94,6 +94,7 @@ public class MemberDashboard : PageModel
                     connection.Open();
 
                     //get the currently logged in users ID
+
                     int memberId = int.Parse(User.FindFirst("UserId")?.Value);
 
                     //Query to get isMember status
@@ -126,7 +127,12 @@ public class MemberDashboard : PageModel
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
                         //add users MemberId as a parameter to the query
-                        command.Parameters.AddWithValue("@MemberId", memberId);
+                        if(string.IsNullOrEmpty(id)){
+                            command.Parameters.AddWithValue("@MemberId", memberId);
+                        }else 
+                        {
+                            command.Parameters.AddWithValue("@MemberId", int.Parse(id));
+                        }
 
                         using (MySqlDataReader reader = command.ExecuteReader()) {
                             while (reader.Read()){
@@ -158,4 +164,56 @@ public class MemberDashboard : PageModel
                 Console.WriteLine("We have an error: " + ex.Message);
             }
     }
+
+    /*public void OnGetFromAdmin(string id){
+        try{
+            var connectionString = _configuration.GetConnectionString("Default");
+            using (MySqlConnection connection = new MySqlConnection(connectionString)){
+
+                connection.Open();
+
+                string sql = @"SELECT p.*, 
+                       (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`
+                FROM ymca.Programs p
+                INNER JOIN Member_Programs mp ON p.program_id = mp.ProgramId
+                LEFT JOIN (
+                    SELECT ProgramId, COUNT(MemberId) AS registered_count 
+                    FROM Member_Programs 
+                    GROUP BY ProgramId
+                ) m ON p.program_id = m.ProgramId
+                WHERE mp.MemberId = @MemberId";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        //add users MemberId as a parameter to the query
+                    command.Parameters.AddWithValue("@MemberId", int.Parse(id));
+
+                    using (MySqlDataReader reader = command.ExecuteReader()) {
+                        while (reader.Read()){
+
+                            Models.Programs classInfo = new Models.Programs();
+
+                            classInfo.ProgramId = reader.GetInt32(0);
+                            classInfo.ClassName = reader.GetString(1);
+                            classInfo.ClassDescription = reader.GetString(2);
+                            classInfo.StaffId = reader.GetInt16(3);
+                            classInfo.Capacity = reader.GetInt32(6);
+                            classInfo.StartDate = reader.GetDateTime(7);
+                            classInfo.EndDate = reader.GetDateTime(8);
+                            classInfo.StartTime = reader.GetDateTime(9);
+                            classInfo.EndTime = reader.GetDateTime(10);
+                            classInfo.Location = reader.GetString(11);
+                            classInfo.Days = reader.GetString(12);
+                            classInfo.SpotsLeft = reader.GetInt32(13);
+
+                            programList.Add(classInfo);
+                        }
+                    }
+                }
+
+            }
+
+        }catch(Exception ex){
+                Console.WriteLine("We have an error: " + ex.Message);
+        }
+    }*/
 }

@@ -34,10 +34,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated) {
+                            if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
+                              <li class="nav-item">
+                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/AdminDashboard">Admin Dashboard</a>
+                              </li>
+                              
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/MemberDashboard">Dashboard</a>
+                            </li> 
+                        }
                     </ul>
-                    @if (User.Identity.IsAuthenticated) {
-                        <a class="nav-link text-dark" asp-area="" asp-page="/MemberDashboard">Dashboard</a>
-                    }
+                    
                     <partial name="_LoginPartial"></partial>
                 </div>
             </div>
