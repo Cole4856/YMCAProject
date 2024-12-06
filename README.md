@@ -1,5 +1,8 @@
 # YMCAProject
 
+## Launch Information
+To run the project, in your terminal navigate to the project directory then type: ```dotnet run```
+
 ## Login Info
 Staff
 |User|Password|
