@@ -33,11 +33,18 @@ public class ProgramsModel : PageModel
 
     public List<Programs> programList {get; set;} = [];
 
-    // Register button
+    /* 
+     * Register Class Button
+     *
+     * Input: memberId, class info
+     * Return: redirect to page and show success or error message
+     */
     public IActionResult OnPostRegisterClass(int memberId, string className, int programId, DateTime startDate, DateTime startTime, string days)
     {
+        // select member who is registering for course
         LoadFamilyMembers();
         Member mem = FamilyMembers.FirstOrDefault(m => m.MemberId == memberId);
+
         try{
             string connectionString = _configuration.GetConnectionString("Default");
 
@@ -119,7 +126,7 @@ public class ProgramsModel : PageModel
 
         }
         catch(Exception ex){
-            Console.WriteLine("We have a sql error: " + ex.Message);
+            Console.WriteLine("We have a sql error in register class: " + ex.Message);
         }
 
 
@@ -131,7 +138,12 @@ public class ProgramsModel : PageModel
         return RedirectToPage();
     }
 
-    // Cancel button
+    /* 
+     * Cancel Class Button
+     *
+     * Input: programID, class name
+     * Return: redirect to page and show success or error message
+     */
     public IActionResult OnPostCancelClass(int programId, string className)
     {
         try{
@@ -151,22 +163,32 @@ public class ProgramsModel : PageModel
                     }
                 }
 
+                // Show a success message 
+                TempData["RegisterMessage"] = $"Success: {className} has been canceled and all members will be notified on their dashboard";
+                TempData["MessageType"] = "success";
             }
             catch(Exception ex){
                 Console.WriteLine("We have an error: " + ex.Message);
+                // Show an error message 
+                TempData["RegisterMessage"] = $"Error: An exception has occured when trying to cancel {className}";
+                TempData["MessageType"] = "error";
             }
-
-
-        // Show a success message 
-        TempData["RegisterMessage"] = $"Success: {className} has been canceled and all members will be notified on their dashboard";
-        TempData["MessageType"] = "success";
         
-        // Redirect to the same page to show the message
+        // Redirect to the same page and show the message
         return RedirectToPage();
     }
+
+    /* 
+     * On Get Method
+     * This method loads the program list and all the family members of the user
+     *
+     */
     public void OnGet()
     {
-        LoadFamilyMembers();
+        // if member or non-member, load family members
+        if ((User.FindFirst("UserType")?.Value?.Equals("Member") ?? false) || (User.FindFirst("UserType")?.Value?.Equals("non-member") ?? false)){
+            LoadFamilyMembers();
+        }
         try{
             string connectionString = _configuration.GetConnectionString("Default");
 
@@ -201,10 +223,13 @@ public class ProgramsModel : PageModel
                             classInfo.Status = reader.GetInt16(13);
                             classInfo.SpotsLeft = reader.GetInt32(14);
 
+                            // check filter values
                             bool addClass = true;
+                            // keyword value
                             if ((SearchName != null) && classInfo.ClassName.IndexOf(SearchName, StringComparison.OrdinalIgnoreCase) == -1){
                                 addClass = false;
                             }
+                            // day of the week
                             else if (DayOfWeek.Count >= 1 && DayOfWeek[0] is not null){
                                 foreach (var day in DayOfWeek){
                                     int index = classInfo.Days.IndexOf(day);
@@ -213,6 +238,7 @@ public class ProgramsModel : PageModel
                                     }
                                 }
                             }
+                            // start date in range
                             else if (StartDateFrom.HasValue && classInfo.StartDate < StartDateFrom){
                                 addClass = false;
                             }
@@ -220,6 +246,7 @@ public class ProgramsModel : PageModel
                                 addClass = false;
                             }
 
+                            // if pass all filters, add class
                             if (addClass){
                                 programList.Add(classInfo);
                             }
@@ -235,6 +262,13 @@ public class ProgramsModel : PageModel
         }
     }
 
+    /* 
+     * Load family Members of user
+     * This method loads all the family members for the logged in user to the global FamilyMembers list
+     *
+     * Input: none
+     * Return: none
+     */
     private void LoadFamilyMembers(){
         try{
             string connectionString = _configuration.GetConnectionString("Default");

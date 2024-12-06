@@ -5,11 +5,6 @@
 }
 
 <style>
-    @* .card {
-        background-color: #e9ecef;
-        border: none;
-    } *@
-
     .filter-form {
         background-color: #f1f1f1; /* Light gray background */
         padding: 15px;
@@ -20,9 +15,11 @@
 
 <h1>Programs Page</h1>
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
+<!-- Admin can Create New Programs -->
 @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
     <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 }
+<!-- Success/Alert Messages -->
 @if (TempData["RegisterMessage"] != null)
 {
     <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
@@ -56,14 +53,13 @@
         <div class="col-md-2">
             <label for="startDateFrom">Start Date From</label>
             <input type="date" name="startDateFrom" class="form-control" placeholder="Start Date From"  value="@Model.StartDateFrom?.ToString("yyyy-MM-dd")"/>
-        @* </div>
-        <div class="col-md-2"> *@
+        
             <label for="startDateTo" style="margin-top: 20px;">Start Date To</label>
             <input type="date" name="startDateTo" class="form-control" placeholder="Start Date To" value="@Model.StartDateTo?.ToString("yyyy-MM-dd")" />
-
+ 
              @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
                 <label for="status" style="margin-top: 20px;">Class Status</label>
-                <select name="status" class="form-control">
+                <select name="status" class="form-select">
                     <option value="1" >Active/Scheduled</option>
                     <option value="0" >Canceled</option>
 
@@ -71,6 +67,7 @@
             }
         </div>
 
+        <!-- Filter/Submit Button -->
         <div class="col-md-2 text-right">
             <button type="submit" class="btn btn-primary mb-3">Filter</button>
         </div>
@@ -110,7 +107,7 @@
                                 </div>
                             }
                             @* if member/nonmember, show register button *@
-                            else{
+                            else if (User.FindFirst("UserType")?.Value != null){
                                     @if ((@classInfo.SpotsLeft > 0) && (@classInfo.StartDate > @DateTime.Now)){
                                         <form method="post" asp-page-handler="RegisterClass">
                                             <div class= "row align-items-center">
@@ -150,35 +147,3 @@
         }
     </div>
 </div>
-
-@* <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const registerButtons = document.querySelectorAll(".register-btn");
-
-        registerButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                const className = this.dataset.className;
-                const programId = this.dataset.programId;
-                const startDate = this.dataset.startDate;
-
-                const confirmAction = confirm(`Are you sure you want to enroll in "${className}"?`);
-                if (confirmAction) {
-                    // Submit a hidden form or redirect to a handler
-                    const form = document.createElement("form");
-                    form.method = "post";
-                    form.action = "/YourPageName?handler=RegisterClass";
-
-                    // Add hidden inputs for necessary data
-                    form.innerHTML = `
-                        <input type="hidden" name="className" value="${className}" />
-                        <input type="hidden" name="programId" value="${programId}" />
-                        <input type="hidden" name="startDate" value="${startDate}" />
-                    `;
-
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
-        });
-    });
-</script> *@
