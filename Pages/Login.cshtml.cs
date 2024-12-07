@@ -34,6 +34,7 @@ namespace YMCAProject.Pages
         {
             if (!ModelState.IsValid)
             {
+
                 return Page();
             }
 

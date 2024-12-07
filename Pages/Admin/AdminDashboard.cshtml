@@ -19,6 +19,7 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
+            <th>Member Status</th>
             <th>View Classes</th>
             <th>Edit User</th>
         </tr>
@@ -28,6 +29,8 @@
             <td>@member.FirstName</td>
             <td>@member.LastName</td>
             <td>@member.Email</td>
+            <td>@(member.IsMember ? "Member" : "Non-Member")</td>
+            
             <td><a class='btn btn-primary mb-3' href='/MemberDashboard?id=@member.MemberId'>View Programs</a></td>
             <td><form method="post" asp-page-handler="DeleteUser">
                 <input type="hidden" name="memberId" value="@member.MemberId" />
