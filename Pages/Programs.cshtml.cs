@@ -23,6 +23,8 @@ public class ProgramsModel : PageModel
     [BindProperty(SupportsGet = true)]
     public int Status { get; set; } = 1;
 
+    public bool isStaff = false;
+
     public List<Member> FamilyMembers { get; set; } = new();
 
     private readonly IConfiguration _configuration;
@@ -185,6 +187,10 @@ public class ProgramsModel : PageModel
      */
     public void OnGet()
     {
+        // check if on staff
+        if ((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false) || (User.FindFirst("UserType")?.Value?.Equals("Staff") ?? false)){
+            isStaff = true;
+        }
         // if member or non-member, load family members
         if ((User.FindFirst("UserType")?.Value?.Equals("Member") ?? false) || (User.FindFirst("UserType")?.Value?.Equals("non-member") ?? false)){
             LoadFamilyMembers();

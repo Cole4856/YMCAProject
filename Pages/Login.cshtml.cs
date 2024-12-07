@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using YMCAProject.Models;
 
 namespace YMCAProject.Pages
 {
@@ -29,21 +30,28 @@ namespace YMCAProject.Pages
         
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string action)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            
-
-            // Retrieve user from the database
-            var member = await _dbContext.Members
+            Member member = null;
+            Staff staff = null;
+            if (action == "user"){
+                member = await _dbContext.Members
                 .FirstOrDefaultAsync(m => m.Email == Email);
-
-            var staff = await _dbContext.Staff
+            } else {
+                staff = await _dbContext.Staff
                 .FirstOrDefaultAsync(s => s.Email == Email);
+            }
+            // Retrieve user from the database
+            // var member = await _dbContext.Members
+            //     .FirstOrDefaultAsync(m => m.Email == Email);
+
+            // var staff = await _dbContext.Staff
+            //     .FirstOrDefaultAsync(s => s.Email == Email);
 
             //Validate user credentials
             if (member != null && VerifyPassword(Password, member.PasswordHash))
@@ -97,10 +105,15 @@ namespace YMCAProject.Pages
 
         private bool VerifyPassword(string providedPassword, string storedHash)
         {
-            var result = _passwordHasher.VerifyHashedPassword(null, storedHash, providedPassword);
-            if(result == PasswordVerificationResult.Success){
-                return true;
+            try{
+                var result = _passwordHasher.VerifyHashedPassword(null, storedHash, providedPassword);
+                if(result == PasswordVerificationResult.Success){
+                    return true;
+                }
+            }catch(Exception ex){
+                Console.WriteLine("Hashing Error: " + ex.Message);
             }
+            
             return false;
         }
 

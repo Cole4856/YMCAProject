@@ -15,8 +15,8 @@
 
 <h1>Programs Page</h1>
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
-<!-- Admin can Create New Programs -->
-@if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
+<!-- Admin/Staff can Create New Programs -->
+@if(Model.isStaff){
     <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 }
 <!-- Success/Alert Messages -->
@@ -93,8 +93,8 @@
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
 
                         <div class="row">
-                            @* if admin, show modify and cancel buttons *@
-                            @if( (User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false) && (@classInfo.Status != 0)){
+                            @* if admin/staff, show modify and cancel buttons *@
+                            @if( Model.isStaff && (@classInfo.Status != 0)){
                                 <div class="col-sm-4 d-grid">
                                     <a class="btn btn-outline-primary" href="/ModifyProgram?programId=@classInfo.ProgramId" role="button">Modify</a>
                                 </div>
