@@ -21,8 +21,6 @@ namespace YMCAProject.Pages.Admin
             _configuration = configuration;
         }
 
-        // public string ErrorMessage { get; set; }
-
         [BindProperty, Required(ErrorMessage = "The Program Name is required")]
         public string ClassName { get; set; } = null!;
 
@@ -107,6 +105,10 @@ namespace YMCAProject.Pages.Admin
         public void OnGet()
         {        }
 
+        /* 
+        * Submit program button
+        *
+        */
         public void OnPost()
         {
             if (Days.Count < 1 || Days[0] is null)
@@ -152,7 +154,6 @@ namespace YMCAProject.Pages.Admin
 
             }
             catch(Exception ex){
-                // ErrorMessage = ex.Message;
                 Console.WriteLine("We have an error: " + ex.Message);
                 return;
             }

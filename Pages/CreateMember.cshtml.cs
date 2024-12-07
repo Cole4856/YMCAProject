@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -13,9 +14,11 @@ namespace YMCAProject.Pages
     public class CreateMember : PageModel
     {
         private readonly IConfiguration _configuration;
+        private readonly PasswordHasher<string> _passwordHasher;
         public CreateMember(IConfiguration configuration)
         {
             _configuration = configuration;
+            _passwordHasher = new PasswordHasher<string>();
         }
 
         [BindProperty, Required(ErrorMessage = "First Name is required")]
@@ -68,6 +71,9 @@ namespace YMCAProject.Pages
                         }
                     }
 
+                    // hash password
+                    string hashedPassword = _passwordHasher.HashPassword(null, Password);
+
                     sql = "Insert INTO Members " +
                         "(FirstName, LastName, Email, PasswordHash, IsActive, IsMember) VALUES " +
                         "(@FirstName, @LastName, @Email, @PasswordHash, @IsActive, @IsMember)";
@@ -76,7 +82,7 @@ namespace YMCAProject.Pages
                         command.Parameters.AddWithValue("@FirstName", FirstName);
                         command.Parameters.AddWithValue("@LastName", LastName); 
                         command.Parameters.AddWithValue("@Email", Email); 
-                        command.Parameters.AddWithValue("@PasswordHash", Password); 
+                        command.Parameters.AddWithValue("@PasswordHash", hashedPassword); 
                         command.Parameters.AddWithValue("@IsActive", 1); 
                         command.Parameters.AddWithValue("@IsMember", IsMember); 
                         command.ExecuteNonQuery();

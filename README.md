@@ -5,6 +5,7 @@ Staff
 |User|Password|
 |---|---|
 |admin@ymca.com|admin|
+|bob@demo3.com|demo3|
 
 Members/NonMembers
 |User|Password|
@@ -13,6 +14,7 @@ Members/NonMembers
 |jane@demo2.com|demo2|
 |luke@demo2.com|demo2|
 |aini@demo2.com|demo2|
+|bob@demo3.com|demo3|
 
 ## Additional Assumptions
 - Each member can only register once per class
