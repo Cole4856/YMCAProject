@@ -18,9 +18,13 @@ Members/NonMembers
 |aini@demo2.com|demo2|
 
 ## Additional Assumptions
-- Each member can only register once per class
-- Staff automatically get a membership (must create member account when create new staff account)
-- Staff pay member rate
+- The software does not verify whether a user has completed program pre-requisites; it is up to the user to register for the correct class.
+- Program pre-requisites are provided in the description
+- Participants are responsible for checking their dashboard to verify their class schedule
+- Site does not handle fee payment
+- Site does not hard delete user accounts
+- Only staff can create or delete programs.
+- All staff have corresponding personal member accounts to register for classes.  
 
 ## ER Diagram
 ![er diagram](erdiagram.png)
