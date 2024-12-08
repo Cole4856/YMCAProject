@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Identity;
 
 namespace YMCAProject.Models;
@@ -13,5 +11,6 @@ public class Member
     public string PasswordHash {get; set;} = null!;
     public bool IsActive {get; set;}
     public bool IsMember {get; set;}
+    public int FamilyId {get; set;}
 
 }

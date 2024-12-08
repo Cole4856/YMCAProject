@@ -35,11 +35,23 @@ public class AdminDashboard : PageModel
                         
                         command.ExecuteNonQuery();
                     }
+
+                    // remove from current or future programs
+                    sql = "DELETE FROM Member_Programs " +
+                            "WHERE MemberID = @MemberId AND ProgramID IN (SELECT program_id " +
+                                                                            "FROM Programs " +
+                                                                            "WHERE NOW() < end_date)";
+                    
+                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                        command.Parameters.AddWithValue("@MemberId", memberId);
+                        
+                        command.ExecuteNonQuery();
+                    }
                 }
 
             }
             catch(Exception ex){
-                Console.WriteLine("We have an error: " + ex.Message);
+                Console.WriteLine("We have an error on delete user: " + ex.Message);
             }
 
         // Show a success message 

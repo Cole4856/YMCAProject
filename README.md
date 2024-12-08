@@ -8,6 +8,7 @@ Staff
 |User|Password|
 |---|---|
 |admin@ymca.com|admin|
+|bob@demo3.com|demo3|
 
 Members/NonMembers
 |User|Password|
@@ -16,6 +17,7 @@ Members/NonMembers
 |jane@demo2.com|demo2|
 |luke@demo2.com|demo2|
 |aini@demo2.com|demo2|
+|bob@demo3.com|demo3|
 
 ## Additional Assumptions
 - The software does not verify whether a user has completed program pre-requisites; it is up to the user to register for the correct class.
