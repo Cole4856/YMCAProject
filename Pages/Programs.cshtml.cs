@@ -33,7 +33,7 @@ public class ProgramsModel : PageModel
         _configuration = configuration;
     }
 
-    public List<Programs> programList {get; set;} = [];
+    public List<Programs> programList {get; set;} = new List<Programs>();
 
     /* 
      * Register Class Button
@@ -87,32 +87,30 @@ public class ProgramsModel : PageModel
 
                 string[] dayArray = days.Split(',');
 
-                using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                using (MySqlCommand command = new MySqlCommand(sql, connection)) {
                     command.Parameters.AddWithValue("@MemberId", mem.MemberId);
                     command.Parameters.AddWithValue("@startDate", startDate);         
                     command.Parameters.AddWithValue("@startTime", startTime); 
 
 
-                        using (MySqlDataReader reader = command.ExecuteReader()) {
-                            while(reader.Read()){
-                                string curClass = reader.GetString(1);
-                                string programDays = reader.GetString(2);
+                    using (MySqlDataReader reader = command.ExecuteReader()) {
+                        while(reader.Read()){
+                            string curClass = reader.GetString(1);
+                            string programDays = reader.GetString(2);
 
-                                foreach (var day in dayArray)
-                                {
-                                    int index = programDays.IndexOf(day);
-                                    if (index != -1){
-                                        // Show a failure message 
-                                        TempData["RegisterMessage"] = $"Error: unable to register for {className} because it overlaps with {curClass}";
-                                        TempData["MessageType"] = "error";
+                            foreach (var day in dayArray)
+                            {
+                                int index = programDays.IndexOf(day);
+                                if (index != -1){
+                                    // Show a failure message 
+                                    TempData["RegisterMessage"] = $"Error: unable to register for {className} because it overlaps with {curClass}";
+                                    TempData["MessageType"] = "error";
                                         
-                                        // Redirect to the same page to show the message
-                                        return RedirectToPage();
-                                    }
-
+                                    // Redirect to the same page to show the message
+                                    return RedirectToPage();
                                 }
+
                             }
-                            
                         }
                     }
                 }
@@ -129,13 +127,11 @@ public class ProgramsModel : PageModel
                     command.ExecuteNonQuery();
                 }
             }
-
         }
+        
         catch(Exception ex){
             Console.WriteLine("We have a sql error in register class: " + ex.Message);
         }
-
-
         // Show a success message 
         TempData["RegisterMessage"] = $"{mem.FirstName} {mem.LastName} is successfully registered for {className}!";
         TempData["MessageType"] = "success";

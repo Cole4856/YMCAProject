@@ -1,0 +1,116 @@
+@page
+@model YMCAProject.Pages.UserManualModel
+@{
+    ViewData["Title"] = "UserManual";
+}
+
+<h1>User Manual</h1>
+<p>Welcome to the User page. Here you can learn about how the site runs and how to use it.</p>
+
+<h3>Introduction</h2>
+<p>
+    This user manual describes how to use the YMCA Project website.  You can use this site under three different levels, as a user, 
+    a staff or an admin. As a user you can either be a member or a nonmember of the YMCA, which you can sign up for on the site. 
+    As a member you have access to cheaper programs. As a user you can choose to become a member, login, view programs to register for 
+    or view programs that you are registered for, register for programs, search for programs, and cancel your registration. Staff and admin 
+    have a separate login that is associated with their membership status and allows for them to interact with the site as a member. For staff, 
+    you can login, add, edit, or cancel programs. For admin, you can login, add, edit, or cancel/delete programs, staff members, or YMCA members. 
+    This site is connected to a database that holds all of the user, staff, admin, and program information. 
+</p>
+<hr>
+
+<h2>Requirements</h2>
+<p>
+    Must have a web browser and web access. You can access this site via any machine with these capabilities. 
+</p>
+<hr>
+
+<h2>Getting Started</h2>
+<p>
+    In order to get started you first need to load up the webpage. On the homepage shown in Figure 1 a user can: 
+    <ul>
+        <li>Login in order to access the tools associated to their account</li>
+        <li>Check out programs that are currently being offered</li>
+        <li>Choose to sign up as a member </li>
+        <li>Check out this user manual </li>
+    </ul>
+</p>
+<img src="../Screenshots/Figure1.png" width="500px" height="300px" />
+<hr>
+
+<h2>Operations</h2>
+<ul>
+    <li><strong>Member/Non Member</strong></li>
+    <ul>
+        <li>
+            <i>Login</i>: To start off you will want to login, using the navbar to get to the login page and then type in your email and password
+        </li>
+        <li>
+            <i>Dashboard</i>: After successfully logging in you can navigate to your dashboard which is now available on the navbar (Figure 2) 
+            <strong>TODO: insert Figure</strong>
+            <ul>
+                <li>
+                    On your dashboard you can view what classes you are registered (Figure 3) for and if they are active (Figure 4) or canceled (Figure 5 )
+                </li>
+                <strong>TODO: insert Figure</strong>
+            </ul>
+        </li>
+        <li>
+            <i>Register for programs</i>: As a member/non member you can search for classes on the programs page (Figure 6 ) and register for them 
+            (Figure 7). Keep in mind that when you are registering fro a class that you aren't already registered for a different class at that time. 
+            Also if there is a prerequisite that is required for the class, it is up to you to know if you have completed that prerequisite. You will be 
+            prompted to pay for the class when you arrive for it at the facility. Notice that when you are registering for a class the information displayed 
+            shows the name, time, date, and capacity of the class. 
+            <strong>TODO: insert Figure</strong>
+            <ul>
+                <li>
+                    If you would like to check that you are successfully registered for a program, you can navigate back to your dashboard to see it under your currently registered classes 
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+
+    <li><strong>Staff</strong></li>
+    <ul>
+
+    </ul>
+    <hr>
+
+    <li><strong>Admin</strong></li>
+    <ul>
+        <li>
+            <i>Login</i>: To start off you will want to login, using the navbar to get to the login page and then type in your email and password
+        </li>
+        <li>
+            <i>Dashboard</i>: After successfully logging in you can navigate to your dashboard which is now available on the navbar
+            <ul>
+                <li>
+                    On your dashboard you can view members of the YMCA (Figure 8)
+                </li>
+                <li>
+                    <i>View member programs</i>: While on the dashboard you can view the programs a member is signed up for by taking you to the users dashboard 
+                </li>
+                <li>
+                    <i>Remove a member</i>: You can also remove a member from membership status 
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i>Edit programs</i>: After navigating to the programs page you can...
+            <ul>
+                <li>
+                    <i>Create new programs</i>: You can also create a new program when you navigate to the programs page, click the 'Create new Program' button, and fill in the fields 
+                </li>
+                <li>
+                    <i>Modify programs</i>: You can go to a program on the programs page and click the 'Modify' button to edit any information about that specific program
+                </li>
+                <li>
+                    <i>Cancel programs</i>: You can go to a program on the programs page and click the 'Cancel' button to cancel a program
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+</ul>
+<p><i>Exiting</i>: In order to exit your role you can logout and login wit a different email, or simply close the site. </p>
