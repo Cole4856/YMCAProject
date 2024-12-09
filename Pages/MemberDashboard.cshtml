@@ -1,4 +1,5 @@
 @page
+@using YMCAProject.Models
 @model YMCAProject.Pages.MemberDashboard
 @{
     ViewData["Title"] = "MemberDashboard";
@@ -8,17 +9,6 @@
     <h1>@(Model.IsMember == 1 ? "Member Dashboard" : "User Dashboard")</h1>
 }
 <p>Welcome @Model.FirstName! Here you can view all of the programs you are registered for!</p>
-@* <h1>Member Dashboard</h1>
-<p>Welcome @User.Identity.Name! Here you can view all of the programs you are registered for!</p> *@
-@* @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
-<a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
-}
-@if (TempData["RegisterMessage"] != null)
-{
-    <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
-        @TempData["RegisterMessage"]
-    </div>
-} *@
 
 <div class="container">
     <div class="row">
@@ -41,12 +31,11 @@
                             <p class="card-text" style="color: green;"><strong>Status: Active</strong></p>
                         }
                         
-                        @* TODO: change to cancel button *@
-                        @* <form method="post" asp-page-handler="RegisterClass">
-                            <input type="hidden" name="className" value="@classInfo.ClassName" />
+                        <form method="post" asp-page-handler="CancelRegistration">
                             <input type="hidden" name="programId" value="@classInfo.ProgramId" />
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form> *@
+                            <input type="hidden" name="userId" value="@Model.MemberId" />
+                            <button type="submit" class="btn btn-danger">Cancel</button>
+                        </form>
                     </div>
                 </div>
             </div>
