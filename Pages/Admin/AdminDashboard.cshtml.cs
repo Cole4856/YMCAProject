@@ -36,8 +36,8 @@ public class AdminDashboard : PageModel
                              "FROM Members m " + 
                              "JOIN Member_Programs mp ON m.MemberId = mp.MemberId " +
                              "JOIN Programs p ON mp.ProgramId = p.program_id " +
-                             "WHERE p.start_date >= @Start " +
-                             "AND p.end_date <= @End "+
+                             "WHERE (p.start_date <= @End) " +
+                             "AND (p.end_date >= @Start) "+
                              "ORDER BY m.MemberId, p.start_date;";
                 using (MySqlCommand command = new MySqlCommand(sql, connection)){
                     command.Parameters.AddWithValue("@Start", start);
@@ -85,7 +85,7 @@ public class AdminDashboard : PageModel
 
             // Return the CSV file as a downloadable response
 
-            
+
             return File(csvBytes, "text/csv", "MemberPrograms.csv");
 
         }
