@@ -1,5 +1,10 @@
 namespace YMCAProject.Models;
 
+/*
+Author: Cole Hansen
+Date: 12/9/24
+Function: MemberProgram class for generating csv reports
+*/
 public class MemberProgram
 {
     public int MemberId {get; set;}
