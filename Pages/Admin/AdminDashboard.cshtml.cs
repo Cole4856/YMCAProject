@@ -15,9 +15,21 @@ public class AdminDashboard : PageModel
         _configuration = configuration;
     }
 
+    //list of member models for displaying members in grid
     public List<Models.Member> memberList {get; set;} = [];
+    //list of MemberPrograms for generating report
     public List<Models.MemberProgram> memberPrograms {get; set;} = [];
 
+    /*
+    Author: Cole Hansen
+    Date: 12/9/24
+    parameters: DateTime start, DateTime end
+    function: load memberId, name, programId, className, startDate, and endDate
+              from database and load into memberPrograms list and create a csv 
+              file.
+    returns: success-csv file
+             fail: exception    
+    */
     public IActionResult OnPostGenerateReport(DateTime start, DateTime end){
 
         //set end to 30th, 31st, 29th, or 28th of month
@@ -27,6 +39,7 @@ public class AdminDashboard : PageModel
         {
             string connectionString = _configuration.GetConnectionString("Default");
 
+            //load memberPrograms data
             using (MySqlConnection connection = new MySqlConnection(connectionString)){
                 connection.Open();
 
@@ -45,6 +58,7 @@ public class AdminDashboard : PageModel
 
                     using (MySqlDataReader reader = command.ExecuteReader()) {
                         while(reader.Read()){
+                            //read each line of query into memberProgram object
                             var mp = new Models.MemberProgram();
 
                             mp.MemberId = reader.GetInt32(0);
@@ -54,7 +68,7 @@ public class AdminDashboard : PageModel
                             mp.StartDate = reader.GetDateTime(4);
                             mp.EndDate = reader.GetDateTime(5);
 
-                            memberPrograms.Add(mp);
+                            memberPrograms.Add(mp); // add to list
 
                         }
                     }
@@ -63,7 +77,6 @@ public class AdminDashboard : PageModel
 
             }
 
-            Console.WriteLine(memberPrograms.Count);
             var csvBuilder = new StringBuilder();
 
             // Write the CSV headers
@@ -84,8 +97,6 @@ public class AdminDashboard : PageModel
             byte[] csvBytes = Encoding.UTF8.GetBytes(csvBuilder.ToString());
 
             // Return the CSV file as a downloadable response
-
-
             return File(csvBytes, "text/csv", "MemberPrograms.csv");
 
         }
@@ -149,10 +160,17 @@ public class AdminDashboard : PageModel
         return RedirectToPage();
     }
 
+    /*
+    Author: Cole Hansen
+    Date: 11/13/24
+    Parameters: none
+    Function: Load members into MemberList on page load
+    returns: void
+    */
     public void OnGet(){
         try{
                 string connectionString = _configuration.GetConnectionString("Default");
-
+                //connection to sql to load members
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
 
                     connection.Open();
@@ -162,6 +180,7 @@ public class AdminDashboard : PageModel
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
                         using (MySqlDataReader reader = command.ExecuteReader()) {
                             while (reader.Read()){
+                                //read each line from query into member object
                                 Models.Member member = new Models.Member();
 
                                 member.MemberId = reader.GetInt32(0);
@@ -184,7 +203,7 @@ public class AdminDashboard : PageModel
                                     member.IsMember = false;
                                 }
 
-                                memberList.Add(member);
+                                memberList.Add(member); //add member to list
 
                             }
                         }
