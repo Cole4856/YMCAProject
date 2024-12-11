@@ -54,12 +54,6 @@ namespace YMCAProject.Pages
                 staff = await _dbContext.Staff
                 .FirstOrDefaultAsync(s => s.Email == Email);
             }
-            // Retrieve user from the database
-            // var member = await _dbContext.Members
-            //     .FirstOrDefaultAsync(m => m.Email == Email);
-
-            // var staff = await _dbContext.Staff
-            //     .FirstOrDefaultAsync(s => s.Email == Email);
 
             //Validate user credentials
             if (member != null && VerifyPassword(Password, member.PasswordHash))
@@ -122,9 +116,17 @@ namespace YMCAProject.Pages
            await HttpContext.SignInAsync("MyCookieAuth", principal);
         }
 
+        /*
+        Author: Kylie Trousil
+        Date: 12/6/24
+        Parameters: provided password, stored password
+        Function: ensure password is correct
+        returns: bool - true for correct password, false for incorrect password
+        */
         private bool VerifyPassword(string providedPassword, string storedHash)
         {
             try{
+                // hash provided password and check against stored, hashed password
                 var result = _passwordHasher.VerifyHashedPassword(null, storedHash, providedPassword);
                 if(result == PasswordVerificationResult.Success){
                     return true;
