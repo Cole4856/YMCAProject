@@ -1,0 +1,153 @@
+@page
+@model YMCAProject.Pages.UserManualModel
+@{
+    ViewData["Title"] = "UserManual";
+}
+
+<h1>User Manual</h1>
+<p>Welcome to the User page. Here you can learn about how the site runs and how to use it.</p>
+
+<h3>Introduction</h2>
+<p>
+    This user manual describes how to use the YMCA Project website.  You can use this site under three different levels, as a user, 
+    a staff or an admin. As a user you can either be a member or a nonmember of the YMCA, which you can sign up for on the site. 
+    As a member you have access to cheaper programs. As a user you can choose to become a member, login, view programs to register for 
+    or view programs that you are registered for, register for programs, search for programs, and cancel your registration. Staff and admin 
+    have a separate login that is associated with their membership status and allows for them to interact with the site as a member. For staff, 
+    you can login, add, edit, or cancel programs. For admin, you can login, add, edit, or cancel/delete programs, staff members, or YMCA members. 
+    This site is connected to a database that holds all of the user, staff, admin, and program information. 
+</p>
+<hr>
+
+<h2>Requirements</h2>
+<p>
+    Must have a web browser and web access. You can access this site via any machine with these capabilities. 
+</p>
+<hr>
+
+<h2>Getting Started</h2>
+<p>
+    In order to get started you first need to load up the webpage. On the homepage shown a user can: 
+    <ul>
+        <li>Login in order to access the tools associated to their account</li>
+        <ul>
+            <li><i> Members/Non Members click 'User Login' button to log in</i></li>
+            <li><i>Staff/Admin click 'Staff Login' button to log in</i></li>
+        </ul>
+        <li>Check out programs that are currently being offered</li>
+        <li>Choose to sign up as a member </li>
+        <li>Check out this user manual </li>
+    </ul>
+</p>
+<img src="~/Screenshots/Figure1.png" width="600px" height="300px"/>
+<hr>
+
+<h2>Operations</h2>
+<ul>
+    <li><strong>Member/Non Member</strong></li>
+    <ul>
+        <li>
+            <i>Login</i>: To start off you will want to login, using the navbar to get to the login page and then type in your email and password and select 'User Login' button
+            <img src="~/Screenshots/Figure2.png" width="350px" height="200px"/>
+        </li>
+        <li>
+            <i>Dashboard</i>: After successfully logging in you can navigate to your dashboard which is now available on the navbar
+            <img src="~/Screenshots/Figure3.png" width="1100px" height="50px"/> 
+            <ul>
+                <li>
+                    On your dashboard you can view what classes you are registered or and if they are active or canceled.
+                </li>
+                <li>
+                    <i>Cancel Class Registration</i>: If you find that you cannot take a class you have signed up for you can also go to your dashboard and 
+                    cancel your registration of that Class
+                    <img src="~/Screenshots/Figure14.png" width="700px" height="400px"/>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i>Register for programs</i>: As a member/non member you can search for classes on the programs page and register for them. You can search by class name or filter by specifics of the class.
+            Notice that you can sign up yourself or if you are part of a family you can sign up anyone else in your family using the drop down. Keep in mind that when you are registering fro a class that you aren't 
+            already registered for a different class at that time. Also if there is a prerequisite that is required for the class, it is up to you to know if you have completed that 
+            prerequisite. You will be prompted to pay for the class when you arrive for it at the facility. Notice that when you are registering for a class the information displayed 
+            shows the name, time, date, and capacity of the class. 
+            <img src="~/Screenshots/Figure5.png" width="700px" height="400px"/>
+            <ul>
+                <li>
+                    If you would like to check that you are successfully registered for a program, you can navigate back to your dashboard to see it under your currently registered classes 
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i>Become a member</i>: If you are not currently a member, you can navigate to the membership page by clicking 'Membership' in the navbar then clicking 'Sign Up'. This will take you to a screen where you
+            can fill out the information and become a member!
+            <img src="~/Screenshots/Figure7.png" width="700px" height="300px"/> <img src="~/Screenshots/Figure8.png" width="700px" height="200px"/>
+        </li>
+    </ul>
+    <hr>
+
+    <li><strong>Staff</strong></li>
+    <ul>
+        <li>
+            <i>Login</i>: To start off you will want to login, using the navbar to get to the login page and then type in your email and password and select 'Staff Login' button
+            <img src="~/Screenshots/Figure6.png" width="350px" height="200px"/>
+        </li>
+        <li>
+            <i>Edit programs</i>: After navigating to the programs page you can...
+            <ul>
+                <li>
+                    <i>Create new programs</i>: You can also create a new program when you navigate to the programs page, click the 'Create new Program' button, and fill in the fields
+                    <img src="~/Screenshots/Figure9.png" width="700px" height="300px"/> <img src="~/Screenshots/Figure10.png" width="650px" height="300px"/>
+                </li>
+                <li>
+                    <i>Modify programs</i>: You can go to a program on the programs page and click the 'Modify' button to edit any information about that specific program
+                </li>
+                <li>
+                    <i>Cancel programs</i>: You can go to a program on the programs page and click the 'Cancel' button to cancel a program
+                    <img src="~/Screenshots/Figure11.png" width="400px" height="500px"/>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+
+    <li><strong>Admin</strong></li>
+    <ul>
+        <li>
+            <i>Login</i>: To start off you will want to login, using the navbar to get to the login page and then type in your email and password and select 'Staff Login' button
+            <img src="~/Screenshots/Figure6.png" width="350px" height="200px"/>
+        </li>
+        <li>
+            <i>Dashboard</i>: After successfully logging in you can navigate to your dashboard which is now available on the navbar
+            <ul>
+                <li>
+                    On your dashboard you can view members of the YMCA
+                </li>
+                <li>
+                    <i>View member programs</i>: While on the dashboard you can view the programs a member is signed up for by taking you to the users dashboard 
+                </li>
+                <li>
+                    <i>Remove a member</i>: You can also remove a member from membership status
+                    <img src="~/Screenshots/Figure12.png" width="800px" height="200px"/>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <i>Edit programs</i>: After navigating to the programs page you can...
+            <ul>
+                <li>
+                    <i>Create new programs</i>: You can also create a new program when you navigate to the programs page, click the 'Create new Program' button, and fill in the fields
+                    <img src="~/Screenshots/Figure9.png" width="700px" height="300px"/> <img src="~/Screenshots/Figure10.png" width="650px" height="300px"/>
+                </li>
+                <li>
+                    <i>Modify programs</i>: You can go to a program on the programs page and click the 'Modify' button to edit any information about that specific program
+                </li>
+                <li>
+                    <i>Cancel programs</i>: You can go to a program on the programs page and click the 'Cancel' button to cancel a program
+                     <img src="~/Screenshots/Figure11.png" width="400px" height="500px"/>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <hr>
+</ul>
+<p><i>Exiting</i>: In order to exit your role you can log out and log in with a different email, or simply close the site. </p>

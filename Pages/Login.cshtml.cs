@@ -23,21 +23,28 @@ namespace YMCAProject.Pages
 
 
 
-       [BindProperty, Required(ErrorMessage = "Email is required")]
-        public string Email {get; set;} = null!;
+        [BindProperty, Required(ErrorMessage = "Email is required")]
+        public string Email {get; set;} = null!; //email property for sign in 
          [BindProperty, Required(ErrorMessage = "Password is required")]
-        public string Password {get; set;} = null!;
+        public string Password {get; set;} = null!; // password property for sign in 
         
 
-
+        /*
+        Author: Cole Hansen
+        Date: 10/9/24
+        Parameters: string action
+        function: 
+        */
         public async Task<IActionResult> OnPostAsync(string action)
         {
+            //if not valid model state return to page
             if (!ModelState.IsValid)
             {
 
                 return Page();
             }
 
+            //if action = user, find member with the email, else find staff with the email
             Member member = null;
             Staff staff = null;
             if (action == "user"){
@@ -82,14 +89,25 @@ namespace YMCAProject.Pages
             
             }
 
+            //if invalid model add invalid login attmept message
             ModelState.AddModelError("Password", "Invalid login attempt.");
             return Page();
         }
 
 
 
+
+        /*
+        Author: Cole Hansen
+        Date: 10/9/24
+        Parameters: string username, string userType, string userId
+        Function: create a cookie with the user sign in information to store and be
+                  usable throughout the program until a user is logged out
+        Return: void
+        */
         private async void SignInUser(string username, string userType, string userId)
         {
+            //create identity claims
            var claims = new List<Claim>
            {
               new Claim(ClaimTypes.Name, username),
