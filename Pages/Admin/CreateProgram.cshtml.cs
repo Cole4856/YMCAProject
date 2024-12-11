@@ -15,12 +15,14 @@ namespace YMCAProject.Pages.Admin
     
     public class CreateProgram : PageModel
     {
+        // configuration for sql database
         private readonly IConfiguration _configuration;
         public CreateProgram(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        // new program required information
         [BindProperty, Required(ErrorMessage = "The Program Name is required")]
         public string ClassName { get; set; } = null!;
 
@@ -39,9 +41,6 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "Capacity is required"), Range(1, int.MaxValue, ErrorMessage = "The capacity must be greater than 0")]
         public int Capacity { get; set; }
 
-        // [BindProperty, Required(ErrorMessage = "Staff ID is required")]
-        // public int StaffId { get; set; } = 1;
-
         [BindProperty, Required(ErrorMessage = "The Day of Week is required")]
         public List<string> Days { get; set; } = null!;
 
@@ -57,13 +56,13 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "End Time is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndTime))]
         public DateTime EndTime { get; set; }
 
-        public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
-
-
         /*
-         * Data Validation
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: start date, validation context
+        Function: Data validation - ensure start date of program is after today
+        returns: ValidationResult - success or error
         */
-        // Start Date
         public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)
         {
             if (startDate <= DateTime.Today)
@@ -74,7 +73,14 @@ namespace YMCAProject.Pages.Admin
 
             return ValidationResult.Success;
         }
-        // End Date
+
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: end date, validation context
+        Function: Data validation - ensure end date of program is after the start date
+        returns: ValidationResult - success or error
+        */
         public static ValidationResult ValidateEndDate(DateTime endDate, ValidationContext context)
         {
             var instance = context.ObjectInstance as CreateProgram;
@@ -87,7 +93,14 @@ namespace YMCAProject.Pages.Admin
 
             return ValidationResult.Success;
         }
-        // End Time
+
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: end time, validation context
+        Function: Data validation - ensure end time is after start time
+        returns: ValidationResult - success or error
+        */
         public static ValidationResult ValidateEndTime(DateTime endTime, ValidationContext context)
         {
             var instance = context.ObjectInstance as CreateProgram;
@@ -105,16 +118,21 @@ namespace YMCAProject.Pages.Admin
         public void OnGet()
         {        }
 
-        /* 
-        * Submit program button
-        *
+        /*
+        Author: Kylie Trousil
+        Date: 10/9/24 (updated: 11/13/24)
+        Parameters: none
+        Function: on submit button click, add new program to database
+        returns: void
         */
         public void OnPost()
         {
+            // data validation - ensure day of week is selected
             if (Days.Count < 1 || Days[0] is null)
             {
                 ModelState.AddModelError("Days", "The Day of Week is required");
             }
+            // data validation - check model state has no errors
             if (!ModelState.IsValid){
                 Console.WriteLine("Error: Model State is not valid");
                 return;
@@ -122,7 +140,7 @@ namespace YMCAProject.Pages.Admin
 
             string daysAsString = string.Join(",", Days);
 
-            //create new program
+            // create new program
             try{
                 string connectionString = _configuration.GetConnectionString("Default");
 
@@ -158,6 +176,7 @@ namespace YMCAProject.Pages.Admin
                 return;
             }
 
+            // redirect to programs page
             Response.Redirect("/Programs");
         }
     }

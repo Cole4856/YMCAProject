@@ -114,16 +114,23 @@ public class AdminDashboard : PageModel
         return RedirectToPage();
     }
 
-    // Remove User button
+    /*
+    Author: Kylie Trousil
+    Date: 12/13/24
+    Parameters: member id, member first name, member last name
+    Function: Soft delete user from database and remove any current or future classes they are registered for
+    returns: void
+    */
     public IActionResult OnPostDeleteUser(int memberId, string fname, string lname){
 
         try{
+                // connection to database
                 string connectionString = _configuration.GetConnectionString("Default");
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString)){
                     connection.Open();
 
-                    // adjust isActive member value
+                    // soft delete: adjust isActive member value
                     string sql = "UPDATE Members " +
                         "SET IsActive = 0 " +
                         "WHERE MemberId = @MemberId";

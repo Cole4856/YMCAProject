@@ -6,10 +6,10 @@
 
 <style>
     .filter-form {
-        background-color: #f1f1f1; /* Light gray background */
+        background-color: #f1f1f1; /* Light gray background for filter box*/
         padding: 15px;
-        border-radius: 8px; /* Optional: Rounded corners */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 </style>
 
@@ -76,6 +76,7 @@
 
 <div style="height: 20px;"></div>
 
+<!-- Display Programs  -->
 <div class="container">
     <div class="row">
         @foreach (var classInfo in Model.programList)
@@ -93,11 +94,8 @@
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
 
                         <div class="row">
-                            @* if admin/staff, show modify and cancel buttons *@
+                            @* if admin/staff, show cancel button *@
                             @if( Model.isStaff && (@classInfo.Status != 0)){
-                                <div class="col-sm-4 d-grid">
-                                    <a class="btn btn-outline-primary" href="/ModifyProgram?programId=@classInfo.ProgramId" role="button">Modify</a>
-                                </div>
                                 <div class="col-sm-4 d-grid">
                                     <form method="post" asp-page-handler="CancelClass">
                                         <input type="hidden" name="programId" value="@classInfo.ProgramId" />

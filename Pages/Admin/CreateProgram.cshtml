@@ -4,12 +4,11 @@
     ViewData["Title"] = "CreateProgram";
 }
 
-@* <h1>@ViewData["Title"]</h1> *@
-
 <div class="row">
     <div class="col-md mx-auto rounded border p-4">
         <h2 class="text-center mb-5">New Program</h2>
 
+        @* form to create program *@
         <form method="post">
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Program Name*</label>
@@ -72,14 +71,6 @@
                     <input class="form-control" asp-for="Capacity" />
                     <span asp-validation-for="Capacity" class="text-danger"></span>
                 </div>
-            @* </div>
-
-            <div class="row mb-3"> *@
-                @* <label class="col-sm-2 col-form-label">Staff ID*</label>
-                <div class="col-sm-4">
-                    <input class="form-control" asp-for="StaffId" />
-                    <span asp-validation-for="StaffId" class="text-danger"></span>
-                </div> *@
             </div>
 
             
@@ -120,9 +111,6 @@
                     <a class="btn btn-outline-primary" href="/Programs" role="button">Cancel</a>
                 </div>
             </div>
-
-
-
         </form>
     
     </div>

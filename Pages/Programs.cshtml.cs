@@ -8,6 +8,14 @@ namespace YMCAProject.Pages;
 
 public class ProgramsModel : PageModel
 {
+    // sql connection
+    private readonly IConfiguration _configuration;
+    public ProgramsModel(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    // program page filters
     [BindProperty(SupportsGet = true)]
     public string SearchName { get; set; }
 
@@ -23,24 +31,21 @@ public class ProgramsModel : PageModel
     [BindProperty(SupportsGet = true)]
     public int Status { get; set; } = 1;
 
+    // check is staff member
     public bool isStaff = false;
-
+    // list of family members
     public List<Member> FamilyMembers { get; set; } = new();
-
-    private readonly IConfiguration _configuration;
-    public ProgramsModel(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-
+    // list of programs to display
     public List<Programs> programList {get; set;} = new List<Programs>();
 
-    /* 
-     * Register Class Button
-     *
-     * Input: memberId, class info
-     * Return: redirect to page and show success or error message
-     */
+
+    /*
+    Author: Kylie Trousil
+    Date: 10/9/24 (last updated: 12/6/24)
+    Parameters: member id, class name, program id, start date, start time, days of week
+    Function: On register button click, verify no schedule conflicts and register user for program
+    returns: IActionResult - redirect to same page and display success or error message
+    */
     public IActionResult OnPostRegisterClass(int memberId, string className, int programId, DateTime startDate, DateTime startTime, string days)
     {
         // select member who is registering for course
@@ -48,12 +53,13 @@ public class ProgramsModel : PageModel
         Member mem = FamilyMembers.FirstOrDefault(m => m.MemberId == memberId);
 
         try{
+            // connection to databse
             string connectionString = _configuration.GetConnectionString("Default");
 
             using (MySqlConnection connection = new MySqlConnection(connectionString)){
                 connection.Open();
 
-                // check if already registered
+                // check if member is already registered for the course
                 string sql = "SELECT Count(*) FROM Member_Programs " +
                     "WHERE MemberId = @MemberId AND ProgramID = @ProgramId ";
 
@@ -115,7 +121,7 @@ public class ProgramsModel : PageModel
                     }
                 }
 
-                // register
+                // register member for program
                 sql = "Insert INTO Member_Programs " +
                     "(MemberId, ProgramId) VALUES " +
                     "(@MemberId, @ProgramId)";
@@ -132,6 +138,7 @@ public class ProgramsModel : PageModel
         catch(Exception ex){
             Console.WriteLine("We have a sql error in register class: " + ex.Message);
         }
+
         // Show a success message 
         TempData["RegisterMessage"] = $"{mem.FirstName} {mem.LastName} is successfully registered for {className}!";
         TempData["MessageType"] = "success";
@@ -140,54 +147,58 @@ public class ProgramsModel : PageModel
         return RedirectToPage();
     }
 
-    /* 
-     * Cancel Class Button
-     *
-     * Input: programID, class name
-     * Return: redirect to page and show success or error message
-     */
+    /*
+    Author: Kylie Trousil
+    Date: 11/13/24
+    Parameters: program id, class name
+    Function: On cancel button click, soft delete class by updating class status
+    returns: IActionResult - redirect to same page and display success or error message
+    */
     public IActionResult OnPostCancelClass(int programId, string className)
     {
         try{
-                string connectionString = _configuration.GetConnectionString("Default");
+            // connection to sql database
+            string connectionString = _configuration.GetConnectionString("Default");
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString)){
-                    connection.Open();
+            using (MySqlConnection connection = new MySqlConnection(connectionString)){
+                connection.Open();
 
-                    // change status to 0
-                    string sql = "UPDATE Programs SET status = 0 " +
-                                "WHERE program_id = @ProgramId ";
+                // change status to 0
+                string sql = "UPDATE Programs SET status = 0 " +
+                            "WHERE program_id = @ProgramId ";
 
-                    using (MySqlCommand command = new MySqlCommand(sql, connection)){
-                        command.Parameters.AddWithValue("@ProgramId", programId); 
+                using (MySqlCommand command = new MySqlCommand(sql, connection)){
+                    command.Parameters.AddWithValue("@ProgramId", programId); 
 
-                        command.ExecuteNonQuery();
-                    }
+                    command.ExecuteNonQuery();
                 }
+            }
 
-                // Show a success message 
-                TempData["RegisterMessage"] = $"Success: {className} has been canceled and all members will be notified on their dashboard";
-                TempData["MessageType"] = "success";
-            }
-            catch(Exception ex){
-                Console.WriteLine("We have an error: " + ex.Message);
-                // Show an error message 
-                TempData["RegisterMessage"] = $"Error: An exception has occured when trying to cancel {className}";
-                TempData["MessageType"] = "error";
-            }
+            // Show a success message 
+            TempData["RegisterMessage"] = $"Success: {className} has been canceled and all members will be notified on their dashboard";
+            TempData["MessageType"] = "success";
+        }
+        catch(Exception ex){
+            Console.WriteLine("We have an error: " + ex.Message);
+            // Show an error message 
+            TempData["RegisterMessage"] = $"Error: An exception has occured when trying to cancel {className}";
+            TempData["MessageType"] = "error";
+        }
         
         // Redirect to the same page and show the message
         return RedirectToPage();
     }
 
-    /* 
-     * On Get Method
-     * This method loads the program list and all the family members of the user
-     *
-     */
+    /*
+    Author: Kylie Trousil
+    Date: 10/9/24 (last updated 12/9/24)
+    Parameters: 
+    Function: On page load, load all programs and family members
+    returns: void
+    */
     public void OnGet()
     {
-        // check if on staff
+        // check if user on staff
         if ((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false) || (User.FindFirst("UserType")?.Value?.Equals("Staff") ?? false)){
             isStaff = true;
         }
@@ -195,7 +206,9 @@ public class ProgramsModel : PageModel
         if ((User.FindFirst("UserType")?.Value?.Equals("Member") ?? false) || (User.FindFirst("UserType")?.Value?.Equals("non-member") ?? false)){
             LoadFamilyMembers();
         }
+
         try{
+            // sql database connection
             string connectionString = _configuration.GetConnectionString("Default");
 
             using (MySqlConnection connection = new MySqlConnection(connectionString)){
@@ -229,7 +242,7 @@ public class ProgramsModel : PageModel
                             classInfo.Status = reader.GetInt16(13);
                             classInfo.SpotsLeft = reader.GetInt32(14);
 
-                            // check filter values
+                            // check filter values; assume class will be displayed until told otherwise
                             bool addClass = true;
                             // keyword value
                             if ((SearchName != null) && classInfo.ClassName.IndexOf(SearchName, StringComparison.OrdinalIgnoreCase) == -1){
@@ -268,15 +281,16 @@ public class ProgramsModel : PageModel
         }
     }
 
-    /* 
-     * Load family Members of user
-     * This method loads all the family members for the logged in user to the global FamilyMembers list
-     *
-     * Input: none
-     * Return: none
-     */
+    /*
+    Author: Kylie Trousil
+    Date: 12/6/24
+    Parameters: 
+    Function: load all family members of logged in user
+    returns: void
+    */
     private void LoadFamilyMembers(){
         try{
+            // sql database connection
             string connectionString = _configuration.GetConnectionString("Default");
 
             using (MySqlConnection connection = new MySqlConnection(connectionString)){

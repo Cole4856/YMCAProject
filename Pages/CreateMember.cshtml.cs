@@ -13,14 +13,18 @@ namespace YMCAProject.Pages
 {
     public class CreateMember : PageModel
     {
+        // sql database configuration
         private readonly IConfiguration _configuration;
+        // password hasher
         private readonly PasswordHasher<string> _passwordHasher;
+        // constructor
         public CreateMember(IConfiguration configuration)
         {
             _configuration = configuration;
             _passwordHasher = new PasswordHasher<string>();
         }
 
+        // required member information
         [BindProperty, Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; } = null!;
 
@@ -41,8 +45,16 @@ namespace YMCAProject.Pages
         {
         }
 
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: none
+        Function: on submit button click, create new member
+        returns: void
+        */
         public void OnPost()
         {
+            // data validation - check model state is valid
             if (!ModelState.IsValid){
                 Console.WriteLine("Error: Model State is not valid");
                 return;
@@ -74,6 +86,7 @@ namespace YMCAProject.Pages
                     // hash password
                     string hashedPassword = _passwordHasher.HashPassword(null, Password);
 
+                    // add new member to database
                     sql = "Insert INTO Members " +
                         "(FirstName, LastName, Email, PasswordHash, IsActive, IsMember) VALUES " +
                         "(@FirstName, @LastName, @Email, @PasswordHash, @IsActive, @IsMember)";
@@ -91,11 +104,11 @@ namespace YMCAProject.Pages
 
             }
             catch(Exception ex){
-                // ErrorMessage = ex.Message;
-                Console.WriteLine("We have an error: " + ex.Message);
+                Console.WriteLine("We have an error when creating new member: " + ex.Message);
                 return;
             }
 
+            // redirect to membership page
             Response.Redirect("/Membership");
         }
     }
