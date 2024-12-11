@@ -5,6 +5,7 @@
     ViewData["Title"] = "MemberDashboard";
 }
 
+<!-- Display different title based upon if Member or Non Member  -->
 @if (User.Identity.IsAuthenticated) {
     <h1>@(Model.IsMember == 1 ? "Member Dashboard" : "User Dashboard")</h1>
 }
@@ -12,6 +13,7 @@
 
 <div class="container">
     <div class="row">
+        <!-- Display Programs User is registered for  -->
         @foreach (var classInfo in Model.programList)
         {
             <div class="col-lg-4  mb-3">
@@ -30,7 +32,6 @@
                         {
                             <p class="card-text" style="color: green;"><strong>Status: Active</strong></p>
                         }
-                        
                         <form method="post" asp-page-handler="CancelRegistration">
                             <input type="hidden" name="programId" value="@classInfo.ProgramId" />
                             <input type="hidden" name="userId" value="@Model.MemberId" />
