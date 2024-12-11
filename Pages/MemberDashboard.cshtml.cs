@@ -29,7 +29,7 @@ public class MemberDashboard : PageModel
      * Cancel Class Button
      *
      * Input: programID, userId
-     * Return:
+     * Return: Nothing
      */
     public IActionResult OnPostCancelRegistration(int userId, int programId)
     {
@@ -71,7 +71,12 @@ public class MemberDashboard : PageModel
             return RedirectToPage();
     }
 
-    //display users programs that they are signed up for
+    /* 
+     * Get User Programs to Display
+     *
+     * Input: Nothing
+     * Return: Data to display
+     */
     public void OnGet(string? id = null)
     {
         try{
@@ -104,14 +109,14 @@ public class MemberDashboard : PageModel
                     //Query to get program details
                     string sql = @"SELECT p.*, 
                        (p.capacity - COALESCE(m.registered_count, 0)) AS `spotsLeft`
-                FROM ymca.Programs p
-                INNER JOIN Member_Programs mp ON p.program_id = mp.ProgramId
-                LEFT JOIN (
-                    SELECT ProgramId, COUNT(MemberId) AS registered_count 
-                    FROM Member_Programs 
-                    GROUP BY ProgramId
-                ) m ON p.program_id = m.ProgramId
-                WHERE mp.MemberId = @MemberId";
+                        FROM ymca.Programs p
+                        INNER JOIN Member_Programs mp ON p.program_id = mp.ProgramId
+                        LEFT JOIN (
+                            SELECT ProgramId, COUNT(MemberId) AS registered_count 
+                            FROM Member_Programs 
+                            GROUP BY ProgramId
+                        ) m ON p.program_id = m.ProgramId
+                        WHERE mp.MemberId = @MemberId";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
                         //add users MemberId as a parameter to the query
@@ -122,6 +127,7 @@ public class MemberDashboard : PageModel
                             command.Parameters.AddWithValue("@MemberId", int.Parse(id));
                         }
 
+                        //retrieve data for prorgams the user is registered for
                         using (MySqlDataReader reader = command.ExecuteReader()) {
                             while (reader.Read()){
 
