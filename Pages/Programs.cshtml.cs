@@ -41,7 +41,7 @@ public class ProgramsModel : PageModel
 
     /*
     Author: Kylie Trousil
-    Date: 10/9/24
+    Date: 10/9/24 (last updated: 12/6/24)
     Parameters: member id, class name, program id, start date, start time, days of week
     Function: On register button click, verify no schedule conflicts and register user for program
     returns: IActionResult - redirect to same page and display success or error message

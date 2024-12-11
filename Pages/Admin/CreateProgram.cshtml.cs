@@ -15,12 +15,14 @@ namespace YMCAProject.Pages.Admin
     
     public class CreateProgram : PageModel
     {
+        // configuration for sql database
         private readonly IConfiguration _configuration;
         public CreateProgram(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        // new program required information
         [BindProperty, Required(ErrorMessage = "The Program Name is required")]
         public string ClassName { get; set; } = null!;
 
@@ -39,9 +41,6 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "Capacity is required"), Range(1, int.MaxValue, ErrorMessage = "The capacity must be greater than 0")]
         public int Capacity { get; set; }
 
-        // [BindProperty, Required(ErrorMessage = "Staff ID is required")]
-        // public int StaffId { get; set; } = 1;
-
         [BindProperty, Required(ErrorMessage = "The Day of Week is required")]
         public List<string> Days { get; set; } = null!;
 
@@ -56,9 +55,6 @@ namespace YMCAProject.Pages.Admin
 
         [BindProperty, Required(ErrorMessage = "End Time is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndTime))]
         public DateTime EndTime { get; set; }
-
-        public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
-
 
         /*
         Author: Kylie Trousil
@@ -124,7 +120,7 @@ namespace YMCAProject.Pages.Admin
 
         /*
         Author: Kylie Trousil
-        Date: 10/9/24
+        Date: 10/9/24 (updated: 11/13/24)
         Parameters: none
         Function: on submit button click, add new program to database
         returns: void

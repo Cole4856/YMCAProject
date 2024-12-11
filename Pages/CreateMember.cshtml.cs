@@ -13,14 +13,18 @@ namespace YMCAProject.Pages
 {
     public class CreateMember : PageModel
     {
+        // sql database configuration
         private readonly IConfiguration _configuration;
+        // password hasher
         private readonly PasswordHasher<string> _passwordHasher;
+        // constructor
         public CreateMember(IConfiguration configuration)
         {
             _configuration = configuration;
             _passwordHasher = new PasswordHasher<string>();
         }
 
+        // required member information
         [BindProperty, Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; } = null!;
 
