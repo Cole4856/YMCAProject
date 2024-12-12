@@ -119,7 +119,7 @@ public class AdminDashboard : PageModel
     Date: 12/13/24
     Parameters: member id, member first name, member last name
     Function: Soft delete user from database and remove any current or future classes they are registered for
-    returns: void
+    returns: IActionResult - redirect to page and show error/success message
     */
     public IActionResult OnPostDeleteUser(int memberId, string fname, string lname){
 

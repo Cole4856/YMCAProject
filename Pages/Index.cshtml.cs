@@ -16,19 +16,23 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
+    /*
+    Author: Cole Hansen
+    Date: 10/9/24
+    Parameters: 
+    Function: on page load, get username, type, and id. Used for verifying login works
+    Return: void
+    */
     public void OnGet()
     {
-        if(User.Identity.IsAuthenticated){
-            username = User.Identity.Name;
-            usertype = User.FindFirst("UserType")?.Value;
-            userId = User.FindFirst("UserId")?.Value;
-        }else{
-            username = "failed";
-            usertype = "failed";
-            userId = "No id found";
-
-            
-        }
-
+        // if(User.Identity.IsAuthenticated){
+        //     username = User.Identity.Name;
+        //     usertype = User.FindFirst("UserType")?.Value;
+        //     userId = User.FindFirst("UserId")?.Value;
+        // }else{
+        //     username = "failed";
+        //     usertype = "failed";
+        //     userId = "No id found";
+        // }
     }
 }
