@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 string connectionString = builder.Configuration.GetConnectionString("Default");
-
+//add db context to application
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -27,6 +27,7 @@ var app = builder.Build();
 app.UseRouting();
 app.UseAuthentication(); // Add this line
 app.UseAuthorization(); // Ensure this is after UseAuthentication
+app.UseStaticFiles();
 
 app.MapRazorPages();
 

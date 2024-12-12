@@ -4,11 +4,22 @@
     ViewData["Title"] = "Programs";
 }
 
+<style>
+    .filter-form {
+        background-color: #f1f1f1; /* Light gray background for filter box*/
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
 <h1>Programs Page</h1>
 <p>Welcome to the Programs page. Here you can learn more about our program offerings.</p>
-@if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
-<a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
+<!-- Admin/Staff can Create New Programs -->
+@if(Model.isStaff){
+    <a class='btn btn-primary mb-3' href='/Admin/CreateProgram'>Create New Program</a>
 }
+<!-- Success/Alert Messages -->
 @if (TempData["RegisterMessage"] != null)
 {
     <div class="alert @((string)TempData["MessageType"] == "success" ? "alert-success" : "alert-danger")">
@@ -16,6 +27,56 @@
     </div>
 }
 
+<form method="get" class="filter-form">
+    <div class="row mb-4">
+        <!-- Search by Program Name -->
+        <div class="col-md-5">
+            <label for="searchName">Search by Keyword</label>
+            <input type="text" name="searchName" class="form-control" placeholder="Program Name" value="@Model.SearchName" /> 
+        </div>
+
+        <!-- Filter by Day of the Week -->
+        <div class="col-md-3">
+            <label for="dayOfWeek">Select Days of the Week</label>
+            <select name="dayOfWeek" class="form-control" multiple size=7>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
+
+        <!-- Start Date Range -->
+        <div class="col-md-2">
+            <label for="startDateFrom">Start Date From</label>
+            <input type="date" name="startDateFrom" class="form-control" placeholder="Start Date From"  value="@Model.StartDateFrom?.ToString("yyyy-MM-dd")"/>
+        
+            <label for="startDateTo" style="margin-top: 20px;">Start Date To</label>
+            <input type="date" name="startDateTo" class="form-control" placeholder="Start Date To" value="@Model.StartDateTo?.ToString("yyyy-MM-dd")" />
+ 
+             @if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
+                <label for="status" style="margin-top: 20px;">Class Status</label>
+                <select name="status" class="form-select">
+                    <option value="1" >Active/Scheduled</option>
+                    <option value="0" >Canceled</option>
+
+                </select>
+            }
+        </div>
+
+        <!-- Filter/Submit Button -->
+        <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-primary mb-3">Filter</button>
+        </div>
+    </div>
+</form>
+
+<div style="height: 20px;"></div>
+
+<!-- Display Programs  -->
 <div class="container">
     <div class="row">
         @foreach (var classInfo in Model.programList)
@@ -32,11 +93,52 @@
                         <p class="card-text"><strong>Price (Non-member):</strong> $@classInfo.PriceNonmember</p>
                         <p class="card-text"><strong>Spots Left:</strong> @classInfo.SpotsLeft</p>
 
-                        <form method="post" asp-page-handler="RegisterClass">
-                            <input type="hidden" name="className" value="@classInfo.ClassName" />
-                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
+                        <div class="row">
+                            @* if admin/staff, show cancel button *@
+                            @if( Model.isStaff && (@classInfo.Status != 0)){
+                                <div class="col-sm-4 d-grid">
+                                    <form method="post" asp-page-handler="CancelClass">
+                                        <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                                        <input type="hidden" name="className" value="@classInfo.ClassName" />
+                                        <button type="submit" class="btn btn-outline-primary">Cancel</button>
+                                    </form>
+                                </div>
+                            }
+                            @* if member/nonmember, show register button *@
+                            else if (User.FindFirst("UserType")?.Value != null){
+                                    @if ((@classInfo.SpotsLeft > 0) && (@classInfo.StartDate > @DateTime.Now)){
+                                        <form method="post" asp-page-handler="RegisterClass">
+                                            <div class= "row align-items-center">
+                                                <!-- Family Dropdown -->
+                                                <div class="col-sm-8">
+                                                    <label for="dropdownOption" class="form-label visually-hidden">Family Member:</label>
+                                                    <select id="dropdownOption" name="memberId" class="form-select" required>
+                                                        <option value="" disabled selected>Select a Family Member</option>
+                                                        @foreach (var option in Model.FamilyMembers)
+                                                        {
+                                                            <option value="@option.MemberId">@option.FirstName @option.LastName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <!-- Register Button  -->
+                                                <div class="col-sm-4">
+                                                    <button type="submit" class="btn btn-primary">Register</button>
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="className" value="@classInfo.ClassName" />
+                                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                                            <input type="hidden" name="startDate" value="@classInfo.StartDate" />
+                                            <input type="hidden" name="startTime" value="@classInfo.StartTime" />
+                                            <input type="hidden" name="days" value="@classInfo.Days" />
+                                        </form>
+                                    }
+                                
+                            }
+                            
+                        </div>
+
+                        
                     </div>
                 </div>
             </div>

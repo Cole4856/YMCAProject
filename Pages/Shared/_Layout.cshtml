@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - YMCAProject</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/YMCAProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/YMCAProject.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -31,11 +31,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Schedules">Schedules</a>
                         </li>
-                        
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/UserManual">User Manual</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated) {
+                            if((User.FindFirst("UserType")?.Value?.Equals("Admin") ?? false)){
+                              <li class="nav-item">
+                                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/AdminDashboard">Admin Dashboard</a>
+                              </li>
+                              
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/MemberDashboard">Dashboard</a>
+                            </li> 
+                        }
                     </ul>
+                    
                     <partial name="_LoginPartial"></partial>
                 </div>
             </div>
@@ -53,9 +67,9 @@
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -1,0 +1,45 @@
+@page
+@using YMCAProject.Models
+@model YMCAProject.Pages.MemberDashboard
+@{
+    ViewData["Title"] = "MemberDashboard";
+}
+
+<!-- Display different title based upon if Member or Non Member  -->
+@if (User.Identity.IsAuthenticated) {
+    <h1>@(Model.IsMember == 1 ? "Member Dashboard" : "User Dashboard")</h1>
+}
+<p>Welcome @Model.FirstName! Here you can view all of the programs you are registered for!</p>
+
+<div class="container">
+    <div class="row">
+        <!-- Display Programs User is registered for  -->
+        @foreach (var classInfo in Model.programList)
+        {
+            <div class="col-lg-4  mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@classInfo.ClassName</h5>
+                        <p class="card-text"><strong>Description:</strong> @classInfo.ClassDescription</p>
+                        <p class="card-text"><strong>Dates:</strong> @classInfo.StartDate.ToString("MMM dd, yyyy") - @classInfo.EndDate.ToString("MMM dd, yyyy")</p>
+                        <p class="card-text"><strong>Day/Time:</strong> @classInfo.Days: @classInfo.StartTime.ToString("hh:mm tt") - @classInfo.EndTime.ToString("hh:mm tt")</p>
+                        <p class="card-text"><strong>Location:</strong> @classInfo.Location</p>
+                        @if (classInfo.Status == 0)
+                        {
+                            <p class="card-text" style="color: red;"><strong>Status: Cancelled</strong></p>
+                        }
+                        else if (classInfo.Status == 1)
+                        {
+                            <p class="card-text" style="color: green;"><strong>Status: Active</strong></p>
+                        }
+                        <form method="post" asp-page-handler="CancelRegistration">
+                            <input type="hidden" name="programId" value="@classInfo.ProgramId" />
+                            <input type="hidden" name="userId" value="@Model.MemberId" />
+                            <button type="submit" class="btn btn-danger">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

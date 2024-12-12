@@ -1,5 +1,10 @@
 namespace YMCAProject.Models;
 
+/*
+Author: Kylie Trousil
+Date: 10/9/24
+Function: program class for loading programs page
+*/
 public class Programs
 {
     public int ProgramId { get; set; }
@@ -17,4 +22,5 @@ public class Programs
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
 
+    public int Status { get; set; }
 }

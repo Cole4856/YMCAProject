@@ -15,14 +15,14 @@ namespace YMCAProject.Pages.Admin
     
     public class CreateProgram : PageModel
     {
+        // configuration for sql database
         private readonly IConfiguration _configuration;
         public CreateProgram(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        // public string ErrorMessage { get; set; }
-
+        // new program required information
         [BindProperty, Required(ErrorMessage = "The Program Name is required")]
         public string ClassName { get; set; } = null!;
 
@@ -32,63 +32,107 @@ namespace YMCAProject.Pages.Admin
         [BindProperty, Required(ErrorMessage = "The Location is required")]
         public string Location { get; set; } = null!;
 
-        [BindProperty, Required(ErrorMessage = "The Price for Members is required")]
+        [BindProperty, Required(ErrorMessage = "The Price for Members is required"), Range(1, int.MaxValue, ErrorMessage = "The price must be greater than 0")]
         public double PriceMember { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "The Price for Non-members is required")]
+        [BindProperty, Required(ErrorMessage = "The Price for Non-members is required"), Range(1, int.MaxValue, ErrorMessage = "The price must be greater than 0")]
         public double PriceNonmember { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "Capacity is required")]
+        [BindProperty, Required(ErrorMessage = "Capacity is required"), Range(1, int.MaxValue, ErrorMessage = "The capacity must be greater than 0")]
         public int Capacity { get; set; }
-
-        // [BindProperty, Required(ErrorMessage = "Staff ID is required")]
-        // public int StaffId { get; set; } = 1;
 
         [BindProperty, Required(ErrorMessage = "The Day of Week is required")]
         public List<string> Days { get; set; } = null!;
 
-        [BindProperty, Required(ErrorMessage = "Start Date is required")]
+        [BindProperty, Required(ErrorMessage = "Start Date is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateStartDate))]
         public DateTime StartDate { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "End Date is required")]
+        [BindProperty, Required(ErrorMessage = "End Date is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndDate))]
         public DateTime EndDate { get; set; }
 
         [BindProperty, Required(ErrorMessage = "Start Time is required")]
         public DateTime StartTime { get; set; }
 
-        [BindProperty, Required(ErrorMessage = "End Time is required")]
+        [BindProperty, Required(ErrorMessage = "End Time is required"), CustomValidation(typeof(CreateProgram), nameof(ValidateEndTime))]
         public DateTime EndTime { get; set; }
 
-        public List<Models.Staff> StaffList { get; set; } = new List<Models.Staff>();
-
-        public void OnGet()
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: start date, validation context
+        Function: Data validation - ensure start date of program is after today
+        returns: ValidationResult - success or error
+        */
+        public static ValidationResult ValidateStartDate(DateTime startDate, ValidationContext context)
         {
+            if (startDate <= DateTime.Today)
+            {   
+                Console.WriteLine($"Start Date: {startDate}");
+                return new ValidationResult("Start date must be after today");
+            }
 
-            //         string sql = "SELECT * FROM staff WHERE is_active";
-
-            //         using (MySqlCommand command = new MySqlCommand(sql, connection)){
-            //             using (MySqlDataReader reader = command.ExecuteReader()) {
-            //                 while (reader.Read()){
-                     //          Models.Staff staffInfo = new Models.Staff();
-
-            //                     staffInfo.StaffId = reader.GetInt32(0);
-            //                     staffInfo.Fname = reader.GetString(1);
-            //                     staffInfo.Lname = reader.GetString(2);
-
-            //                     StaffList.Add(staffInfo);
-            //                 }
-            //             }
-            //         }
-            //     }
-
-            // }
-            // catch(Exception ex){
-            //     Console.WriteLine("We have an error: " + ex.Message);
-            // }
+            return ValidationResult.Success;
         }
 
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: end date, validation context
+        Function: Data validation - ensure end date of program is after the start date
+        returns: ValidationResult - success or error
+        */
+        public static ValidationResult ValidateEndDate(DateTime endDate, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as CreateProgram;
+            if (instance != null && instance.StartDate >= endDate)
+            {
+                Console.WriteLine($"Start Date: {instance.StartDate}");
+                Console.WriteLine($"End Date: {endDate}");
+                return new ValidationResult("End date must be after start date");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        /*
+        Author: Kylie Trousil
+        Date: 11/13/24
+        Parameters: end time, validation context
+        Function: Data validation - ensure end time is after start time
+        returns: ValidationResult - success or error
+        */
+        public static ValidationResult ValidateEndTime(DateTime endTime, ValidationContext context)
+        {
+            var instance = context.ObjectInstance as CreateProgram;
+
+            if (instance != null && instance.StartTime >= endTime)
+            {
+                Console.WriteLine($"Start Time: {instance.StartTime}");
+                Console.WriteLine($"End Time: {endTime}");
+                return new ValidationResult("End time must be after start time");
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public void OnGet()
+        {        }
+
+        /*
+        Author: Kylie Trousil
+        Date: 10/9/24 (updated: 11/13/24)
+        Parameters: none
+        Function: on submit button click, add new program to database
+        returns: void
+        */
         public void OnPost()
         {
+            // data validation - ensure day of week is selected
+            if (Days.Count < 1 || Days[0] is null)
+            {
+                ModelState.AddModelError("Days", "The Day of Week is required");
+            }
+            // data validation - check model state has no errors
             if (!ModelState.IsValid){
                 Console.WriteLine("Error: Model State is not valid");
                 return;
@@ -96,7 +140,7 @@ namespace YMCAProject.Pages.Admin
 
             string daysAsString = string.Join(",", Days);
 
-            //create new program
+            // create new program
             try{
                 string connectionString = _configuration.GetConnectionString("Default");
 
@@ -104,8 +148,8 @@ namespace YMCAProject.Pages.Admin
                     connection.Open();
 
                     string sql = "Insert INTO Programs " +
-                        "(class_name, class_description, staff_id, price_member, price_nonmember, capacity, start_date, end_date, start_time, end_time, location, days) VALUES " +
-                        "(@ClassName, @ClassDescription, @StaffId, @PriceMember, @PriceNonmember, @Capacity, @StartDate, @EndDate, @StartTime, @EndTime, @Location, @Days)";
+                        "(class_name, class_description, staff_id, price_member, price_nonmember, capacity, start_date, end_date, start_time, end_time, location, days, status) VALUES " +
+                        "(@ClassName, @ClassDescription, @StaffId, @PriceMember, @PriceNonmember, @Capacity, @StartDate, @EndDate, @StartTime, @EndTime, @Location, @Days, @Status)";
 
                     using (MySqlCommand command = new MySqlCommand(sql, connection)){
                         command.Parameters.AddWithValue("@ClassName", ClassName);
@@ -120,6 +164,7 @@ namespace YMCAProject.Pages.Admin
                         command.Parameters.AddWithValue("@EndTime", EndTime);
                         command.Parameters.AddWithValue("@Location", Location); 
                         command.Parameters.AddWithValue("@Days", daysAsString);
+                        command.Parameters.AddWithValue("@Status", 1);
                         
                         command.ExecuteNonQuery();
                     }
@@ -127,11 +172,11 @@ namespace YMCAProject.Pages.Admin
 
             }
             catch(Exception ex){
-                // ErrorMessage = ex.Message;
                 Console.WriteLine("We have an error: " + ex.Message);
                 return;
             }
 
+            // redirect to programs page
             Response.Redirect("/Programs");
         }
     }

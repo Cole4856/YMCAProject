@@ -1,5 +1,10 @@
 namespace YMCAProject.Models;
 
+/*
+Author: Kylie Trousil
+Date: 10/9/24
+Function: staff class to be used for programs page
+*/
 public partial class Staff
 {
     public int StaffId { get; set; }

@@ -8,7 +8,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <li class="nav-item">
-        <p> Hello @User.Identity.Name!</p>
+        <p> Hello @User.FindFirst("UserType")?.Value: @User.Identity.Name!</p>
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark" asp-area="" asp-page="/Logout">Logout</a>
